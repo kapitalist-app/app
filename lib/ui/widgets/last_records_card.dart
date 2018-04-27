@@ -16,22 +16,47 @@ class LastRecordsCard extends StatelessWidget {
               title: 'Last records',
               onPressed: () {},
             ),
-            new ListView(
-              children: <Widget>[
-                new ListTile(
-                  leading: new Icon(Icons.monetization_on),
-                  title: new Text('some record'),
-                ),
-                new ListTile(
-                  leading: new Icon(Icons.monetization_on),
-                  title: new Text('some record'),
-                ),
-                new ListTile(
-                  leading: new Icon(Icons.monetization_on),
-                  title: new Text('some record'),
-                ),
-              ],
-            )
+            new SizedBox.fromSize(
+              size: new Size.fromHeight(300.0),
+              child: new Column(
+                children: <Widget>[
+                  new ListTile(
+                    leading: new Icon(Icons.monetization_on),
+                    title: new Text('some record'),
+                    subtitle: new Text('Category\n"Description"'),
+                    trailing: new Column(
+                      children: <Widget>[
+                        new Text('-200,0€'),
+                        new Text('24.04.18'),
+                      ],
+                    ),
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.monetization_on),
+                    title: new Text('some record'),
+                    subtitle: new Text('Category\n"Description"'),
+                    trailing: new Column(
+                      children: <Widget>[
+                        new Text('-200,0€'),
+                        new Text('24.04.18'),
+                      ],
+                    ),
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.monetization_on),
+                    title: new Text('some record'),
+                    subtitle: new Text('Category\n"Description"'),
+                    trailing: new Column(
+                      children: <Widget>[
+                        new Text('-200,0€'),
+                        new Text('24.04.18'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            new Text('Footer'),
           ],
         ),
       ),

@@ -18,7 +18,10 @@ class BalanceChartCard extends StatelessWidget {
               title: 'Balance chart',
               onPressed: () {},
             ),
-            new SimplePieChart.withSampleData(),
+            new SizedBox.fromSize(
+              size: new Size.fromHeight(250.0),
+              child: new SimplePieChart.withSampleData(),
+            )
           ],
         ),
       ),

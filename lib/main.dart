@@ -4,6 +4,7 @@ import 'package:english_words/english_words.dart';
 import 'package:kapitalist/ui/widgets/balance_card.dart';
 import 'package:kapitalist/ui/widgets/balance_chart_card.dart';
 import 'package:kapitalist/ui/widgets/last_records_card.dart';
+import 'package:kapitalist/ui/login_page.dart';
 
 void main() => runApp(new MyApp());
 
@@ -39,12 +40,30 @@ class MyApp extends StatelessWidget {
               new ListView(
                 children: <Widget>[
                   new BalanceCard(),
-                  new BalanceChartCard(),
-                  //new LastRecordsCard(),
+                  //new BalanceChartCard(),
+                  new LastRecordsCard(),
+                  new Column(
+                    children: <Widget>[
+                      new IconButton(
+                        icon: new Icon(
+                          Icons.widgets,
+                          color: Colors.blueGrey,
+                        ),
+                        onPressed: () {
+                          // TODO:
+                        },
+                      ),
+                      new Text('ADD WIDGET'),
+                    ],
+                  )
                 ],
               ),
-              new SimplePieChart.withSampleData(),
-              new Icon(Icons.looks_3),
+              new ListView(
+                children: <Widget>[
+                  new BalanceChartCard(),
+                ],
+              ),
+              new LoginPage(),
             ],
           ),
         ),
