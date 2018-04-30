@@ -5,35 +5,35 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Column(
       children: <Widget>[
-        new Padding(
-          padding: const EdgeInsets.symmetric(vertical: 25.0),
-          child: new CircleAvatar(
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 25.0),
+          child: CircleAvatar(
             backgroundColor: Colors.green,
             radius: 75.0,
           ),
         ),
-        new Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: new TextField(
-            decoration: new InputDecoration(
+        Padding(
+          padding: EdgeInsets.all(40.0),
+          child: TextField(
+            decoration: InputDecoration(
               labelText: 'Email',
-              prefixIcon: new Icon(Icons.email),
+              prefixIcon: Icon(Icons.email),
             ),  
           ),
         ),
-        new Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0),
-          child: new TextField(
-            decoration: new InputDecoration(
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 40.0),
+          child: TextField(
+            decoration: InputDecoration(
               labelText: 'Password',
-              prefixIcon: new Icon(Icons.vpn_key),
+              prefixIcon: Icon(Icons.vpn_key),
             ),
           ),
         ),
-        new Padding(
-          padding: const EdgeInsets.symmetric(vertical: 40.0),
-          child: new MaterialButton(
-            child: new Text('Login'),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 40.0),
+          child: MaterialButton(
+            child: Text('Login'),
             color: Colors.green,
             minWidth: 250.0,
             onPressed: () {},

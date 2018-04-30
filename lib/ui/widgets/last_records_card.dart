@@ -6,57 +6,57 @@ class LastRecordsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Card(
-      child: new Padding(
+      child: Padding(
         padding: EdgeInsets.only(
           bottom: 10.0,
         ),
-        child: new Column(
+        child: Column(
           children: <Widget>[
-            new CardTitle(
+            CardTitle(
               title: 'Last records',
               onPressed: () {},
             ),
-            new SizedBox.fromSize(
-              size: new Size.fromHeight(300.0),
-              child: new Column(
+            SizedBox.fromSize(
+              size: const Size.fromHeight(300.0),
+              child: Column(
                 children: <Widget>[
-                  new ListTile(
-                    leading: new Icon(Icons.monetization_on),
-                    title: new Text('some record'),
-                    subtitle: new Text('Category\n"Description"'),
-                    trailing: new Column(
+                  ListTile(
+                    leading: const  Icon(Icons.monetization_on),
+                    title: Text('some record'),
+                    subtitle: Text('Category\n"Description"'),
+                    trailing: Column(
                       children: <Widget>[
-                        new Text('-200,0€'),
-                        new Text('24.04.18'),
+                        Text('-200,0€'),
+                        Text('24.04.18'),
                       ],
                     ),
                   ),
-                  new ListTile(
-                    leading: new Icon(Icons.monetization_on),
-                    title: new Text('some record'),
-                    subtitle: new Text('Category\n"Description"'),
-                    trailing: new Column(
+                  ListTile(
+                    leading: const  Icon(Icons.monetization_on),
+                    title: Text('some record'),
+                    subtitle: Text('Category\n"Description"'),
+                    trailing: Column(
                       children: <Widget>[
-                        new Text('-200,0€'),
-                        new Text('24.04.18'),
+                        Text('-200,0€'),
+                        Text('24.04.18'),
                       ],
                     ),
                   ),
-                  new ListTile(
-                    leading: new Icon(Icons.monetization_on),
-                    title: new Text('some record'),
-                    subtitle: new Text('Category\n"Description"'),
-                    trailing: new Column(
+                  ListTile(
+                    leading:const  Icon(Icons.monetization_on),
+                    title: Text('some record'),
+                    subtitle: Text('Category\n"Description"'),
+                    trailing: Column(
                       children: <Widget>[
-                        new Text('-200,0€'),
-                        new Text('24.04.18'),
+                        Text('-200,0€'),
+                        Text('24.04.18'),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            new Text('Footer'),
+            Text('Footer'),
           ],
         ),
       ),

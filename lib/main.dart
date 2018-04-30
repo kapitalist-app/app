@@ -1,86 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
+import 'package:kapitalist/models/models.dart';
+import 'package:kapitalist/redux/reducers/app_state_reducer.dart';
 import 'package:kapitalist/ui/widgets/balance_card.dart';
 import 'package:kapitalist/ui/widgets/balance_chart_card.dart';
 import 'package:kapitalist/ui/widgets/last_records_card.dart';
 import 'package:kapitalist/ui/login_page.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new KapitalistApp());
 
-class MyApp extends StatelessWidget {
+class KapitalistApp extends StatelessWidget {
+  final store = Store<AppState>(
+    appReducer,
+    initialState: new AppState(),
+    // middleware: createMiddleware(),
+  );
+
+  KapitalistApp();
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'Kapitalist',
-      home: new DefaultTabController(
-        length: 3,
-        child: new Scaffold(
-          backgroundColor: const Color(0xFFEEEEEE),
-          appBar: new AppBar(
-            leading: new IconButton(
-              icon: new Icon(Icons.menu),
+    return new StoreProvider(
+      store: store,
+      child: MaterialApp(
+        title: 'Kapitalist',
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            backgroundColor: const Color(0xFFEEEEEE),
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {},
+              ),
+              bottom: TabBar(
+                tabs: [
+                  Tab(icon: const Icon(Icons.account_balance_wallet)),
+                  Tab(icon: const Icon(Icons.looks_two)),
+                  Tab(icon: const Icon(Icons.looks_3)),
+                ],
+              ),
+              title: Text('Kapitalist'),
+            ),
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.add),
               onPressed: () {},
             ),
-            bottom: new TabBar(
-              tabs: [
-                new Tab(icon: new Icon(Icons.account_balance_wallet)),
-                new Tab(icon: new Icon(Icons.looks_two)),
-                new Tab(icon: new Icon(Icons.looks_3)),
+            body: TabBarView(
+              children: [
+                ListView(
+                  children: <Widget>[
+                    BalanceCard(),
+                    //BalanceChartCard(),
+                    LastRecordsCard(),
+                    Column(
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(
+                            Icons.widgets,
+                            color: Colors.blueGrey,
+                          ),
+                          onPressed: () {
+                            // TODO:
+                          },
+                        ),
+                        Text('ADD WIDGET'),
+                      ],
+                    )
+                  ],
+                ),
+                ListView(
+                  children: <Widget>[
+                    BalanceChartCard(),
+                  ],
+                ),
+                LoginPage(),
               ],
             ),
-            title: new Text('Kapitalist'),
-          ),
-          floatingActionButton: new FloatingActionButton(
-            child: new Icon(Icons.add),
-            onPressed: () {},
-          ),
-          body: new TabBarView(
-            children: [
-              new ListView(
-                children: <Widget>[
-                  new BalanceCard(),
-                  //new BalanceChartCard(),
-                  new LastRecordsCard(),
-                  new Column(
-                    children: <Widget>[
-                      new IconButton(
-                        icon: new Icon(
-                          Icons.widgets,
-                          color: Colors.blueGrey,
-                        ),
-                        onPressed: () {
-                          // TODO:
-                        },
-                      ),
-                      new Text('ADD WIDGET'),
-                    ],
-                  )
-                ],
-              ),
-              new ListView(
-                children: <Widget>[
-                  new BalanceChartCard(),
-                ],
-              ),
-              new LoginPage(),
-            ],
           ),
         ),
       ),
     );
-  }
-}
-
-class RandomWords extends StatefulWidget {
-  @override
-  createState() => new RandomWordsState();
-}
-
-class RandomWordsState extends State<RandomWords> {
-  @override
-  Widget build(BuildContext ctx) {
-    final words = new WordPair.random();
-    return new Text(words.asPascalCase);
   }
 }

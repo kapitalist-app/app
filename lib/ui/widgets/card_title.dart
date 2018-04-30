@@ -13,18 +13,17 @@ class CardTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Row(
       children: <Widget>[
-        new Expanded(
-          child: new Padding(
-            padding: new EdgeInsets.only(left: 5.0),
-            child: new Text(
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(left: 5.0),
+            child: Text(
               this.title,
-              style:
-                  const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
         ),
-        new IconButton(
-          icon: new Icon(Icons.more_vert),
+        IconButton(
+          icon: const Icon(Icons.more_vert),
           onPressed: this.onPressed,
         ),
       ],
