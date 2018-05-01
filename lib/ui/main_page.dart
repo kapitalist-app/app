@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/widgets/widgets.dart';
+import 'package:kapitalist/ui/cards/cards.dart';
 import 'package:kapitalist/ui/login_page.dart';
 
 class MainPage extends StatelessWidget {

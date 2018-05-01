@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/widgets/card_title.dart';
+import 'package:kapitalist/ui/cards/card_title.dart';
 
 class LastRecordsCard extends StatelessWidget {
   @override
