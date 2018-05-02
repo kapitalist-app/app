@@ -22,9 +22,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _submit() {
-    if (_keyForm.currentState.validate()) {
-      // TODO: do register/login
+    final form = _keyForm.currentState;
+
+    if (form.validate()) {
+      form.save();
+      _doLogin();
     }
+  }
+
+  void _doLogin() {
+    // TODO: Implement login
+    final ctx = _keyForm.currentContext;
+
+    final sb = new SnackBar(
+      content: new Text('Email: $_email, password: $_password'),
+    );
+
+    Scaffold.of(ctx).showSnackBar(sb);
   }
 
   @override
@@ -69,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 40.0),
+            padding: EdgeInsets.symmetric(vertical: 35.0),
             child: MaterialButton(
               child: Text('Login'),
               color: Colors.green,
