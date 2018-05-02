@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO: Make page scroll up when keyboard is extended
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => new _LoginPageState();
@@ -10,6 +12,14 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email;
   String _password;
+
+  String _validateEmail(String email) {
+    return email.contains('@') ? null : 'Invalid email';
+  }
+
+  String _validatePassword(String password) {
+    return null;
+  }
 
   void _submit() {
     if (_keyForm.currentState.validate()) {
@@ -39,7 +49,8 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const EdgeInsets.only(right: 5.0),
                     child: Icon(Icons.email)),
               ),
-              validator: (val) => val.contains('@') ? null : 'Not a valid email',
+              validator: (val) => _validateEmail(val),
+              onSaved: (val) => _email = val,
             ),
           ),
           Padding(
@@ -52,6 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                   child: Icon(Icons.vpn_key),
                 ),
               ),
+              validator: (val) => _validatePassword(val),
+              onSaved: (val) => _password = val,
+              obscureText: true,
             ),
           ),
           Padding(

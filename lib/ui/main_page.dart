@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/cards/cards.dart';
 import 'package:kapitalist/ui/drawer_page.dart';
 import 'package:kapitalist/ui/login_page.dart';
+import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
+
+// FIXME: Remove this and properly structure app
+import 'package:kapitalist/ui/cards/balance_chart_card.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -12,6 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
+    // TODO: Remove this and add controller to page
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -35,27 +39,7 @@ class _MainPageState extends State<MainPage> {
         ),
         body: TabBarView(
           children: [
-            ListView(
-              children: <Widget>[
-                BalanceCard(),
-                //BalanceChartCard(),
-                LastRecordsCard(),
-                Column(
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(
-                        Icons.widgets,
-                        color: Colors.blueGrey,
-                      ),
-                      onPressed: () {
-                        // TODO:
-                      },
-                    ),
-                    Text('ADD WIDGET'),
-                  ],
-                )
-              ],
-            ),
+            AccountTabPage(),
             ListView(
               children: <Widget>[
                 BalanceChartCard(),
