@@ -48,14 +48,14 @@ class _LoginPageState extends State<LoginPage> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 25.0),
+            padding: const EdgeInsets.symmetric(vertical: 25.0),
             child: CircleAvatar(
               backgroundColor: Colors.green,
               radius: 75.0,
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(40.0),
+            padding: const EdgeInsets.all(40.0),
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: 'Email',
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.0),
+            padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: TextFormField(
               decoration: InputDecoration(
                 labelText: 'Password',
@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 35.0),
+            padding: const EdgeInsets.symmetric(vertical: 35.0),
             child: MaterialButton(
               child: Text('Login'),
               color: Colors.green,

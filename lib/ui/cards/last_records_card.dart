@@ -7,7 +7,7 @@ class LastRecordsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Card(
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           bottom: 10.0,
         ),
         child: Column(
@@ -21,7 +21,7 @@ class LastRecordsCard extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   ListTile(
-                    leading: const  Icon(Icons.monetization_on),
+                    leading: const Icon(Icons.monetization_on),
                     title: Text('some record'),
                     subtitle: Text('Category\n"Description"'),
                     trailing: Column(
@@ -32,7 +32,7 @@ class LastRecordsCard extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading: const  Icon(Icons.monetization_on),
+                    leading: const Icon(Icons.monetization_on),
                     title: Text('some record'),
                     subtitle: Text('Category\n"Description"'),
                     trailing: Column(
@@ -43,7 +43,7 @@ class LastRecordsCard extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    leading:const  Icon(Icons.monetization_on),
+                    leading: const Icon(Icons.monetization_on),
                     title: Text('some record'),
                     subtitle: Text('Category\n"Description"'),
                     trailing: Column(

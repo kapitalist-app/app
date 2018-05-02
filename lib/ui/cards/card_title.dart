@@ -15,7 +15,7 @@ class CardTitle extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: 5.0),
+            padding: const EdgeInsets.only(left: 5.0),
             child: Text(
               this.title,
               style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),

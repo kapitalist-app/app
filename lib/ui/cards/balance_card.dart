@@ -7,7 +7,7 @@ class BalanceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Card(
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           bottom: 10.0,
         ),
         child: Column(
@@ -17,7 +17,7 @@ class BalanceCard extends StatelessWidget {
               onPressed: () {},
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 2.0),
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
               child: Text(
                 '3000,00€',
                 style: const TextStyle(

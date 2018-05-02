@@ -9,7 +9,7 @@ class BalanceChartCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Card(
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           bottom: 10.0,
         ),
         child: Column(
