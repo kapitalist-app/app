@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:kapitalist/ui/cards/cards.dart';
+import 'package:kapitalist/ui/drawer_page.dart';
 import 'package:kapitalist/ui/login_page.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => new _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -11,10 +17,6 @@ class MainPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: const Color(0xFFEEEEEE),
         appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {},
-          ),
           bottom: TabBar(
             tabs: [
               Tab(icon: const Icon(Icons.account_balance_wallet)),
@@ -23,6 +25,9 @@ class MainPage extends StatelessWidget {
             ],
           ),
           title: Text('Kapitalist'),
+        ),
+        drawer: Drawer(
+          child: new DrawerPage(),
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
