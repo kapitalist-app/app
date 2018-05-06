@@ -1,4 +1,4 @@
-import 'package:kapitalist/models/models.dart';
+import 'package:kapitalist/redux/states/app_state.dart';
 
 AppState appReducer(AppState state, action) {
   return new AppState();

@@ -4,4 +4,8 @@ import 'package:meta/meta.dart';
 class AppState {
 
   AppState();
+
+  factory AppState.initial() {
+    return new AppState();
+  }
 }
