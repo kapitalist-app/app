@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
+
+import 'package:kapitalist/ui/util.dart';
 
 // TODO: Make page scroll up when keyboard is extended
 
-class LoginPage extends StatefulWidget {
-  @override
-  _LoginPageState createState() => new _LoginPageState();
+enum SignupState {
+  LOGIN,
+  REGISTER,
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final _keyForm = new GlobalKey<FormState>();
+typedef OnSubmitCallback = Function(String email, String password);
 
-  String _email;
-  String _password;
+class LoginRegisterPage extends StatelessWidget {
+  final _keyForm = new GlobalKey<FormState>();
+  final _keyEmail = new GlobalKey<FormFieldState<String>>();
+  final _keyPassword = new GlobalKey<FormFieldState<String>>();
+
+  final OnSubmitCallback onSubmit;
+  final SignupState signupState;
+
+  LoginRegisterPage({
+    Key key,
+    @required this.onSubmit,
+    @required this.signupState,
+  }) : super(key: key ?? null);
 
   String _validateEmail(String email) {
     return email.contains('@') ? null : 'Invalid email';
@@ -25,20 +38,10 @@ class _LoginPageState extends State<LoginPage> {
     final form = _keyForm.currentState;
 
     if (form.validate()) {
-      form.save();
-      _doLogin();
+      showSnackbar(_keyForm.currentContext, 'LOGIN/REGISTER: Email: $_keyEmail.currentState.value Password: $_keyPassword.currentState.value');
+
+      onSubmit(_keyEmail.currentState.value, _keyPassword.currentState.value);
     }
-  }
-
-  void _doLogin() {
-    // TODO: Implement login
-    final ctx = _keyForm.currentContext;
-
-    final sb = new SnackBar(
-      content: new Text('Email: $_email, password: $_password'),
-    );
-
-    Scaffold.of(ctx).showSnackBar(sb);
   }
 
   @override
@@ -57,19 +60,22 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: const EdgeInsets.all(40.0),
             child: TextFormField(
+              key: _keyEmail,
+              validator: (val) => _validateEmail(val),
               decoration: InputDecoration(
                 labelText: 'Email',
                 prefixIcon: Padding(
                     padding: const EdgeInsets.only(right: 5.0),
                     child: Icon(Icons.email)),
               ),
-              validator: (val) => _validateEmail(val),
-              onSaved: (val) => _email = val,
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 40.0),
             child: TextFormField(
+              key: _keyPassword,
+              validator: (val) => _validatePassword(val),
+              obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Password',
                 prefixIcon: Padding(
@@ -77,9 +83,6 @@ class _LoginPageState extends State<LoginPage> {
                   child: Icon(Icons.vpn_key),
                 ),
               ),
-              validator: (val) => _validatePassword(val),
-              onSaved: (val) => _password = val,
-              obscureText: true,
             ),
           ),
           Padding(

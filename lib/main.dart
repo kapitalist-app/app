@@ -5,9 +5,9 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/routes.dart';
-import 'package:kapitalist/redux/store.dart';
-import 'package:kapitalist/redux/reducers/app_state_reducer.dart';
-import 'package:kapitalist/redux/states/app_state.dart';
+import 'package:kapitalist/store.dart';
+import 'package:kapitalist/models/app_state.dart';
+import 'package:kapitalist/reducers/app_state_reducer.dart';
 import 'package:kapitalist/ui/main_page.dart';
 
 Future<Null> main() async {

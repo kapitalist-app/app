@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:kapitalist/ui/drawer_page.dart';
-import 'package:kapitalist/ui/login_page.dart';
+import 'package:kapitalist/ui/containers/register.dart';
 import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
 
 // FIXME: Remove this and properly structure app
@@ -23,9 +23,9 @@ class _MainPageState extends State<MainPage> {
         appBar: AppBar(
           bottom: TabBar(
             tabs: [
-              Tab(icon: const Icon(Icons.account_balance_wallet)),
-              Tab(icon: const Icon(Icons.looks_two)),
-              Tab(icon: const Icon(Icons.looks_3)),
+              const Tab(icon: const Icon(Icons.account_balance_wallet)),
+              const Tab(icon: const Icon(Icons.looks_two)),
+              const Tab(icon: const Icon(Icons.looks_3)),
             ],
           ),
           title: Text('Kapitalist'),
@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
                 BalanceChartCard(),
               ],
             ),
-            LoginPage(),
+            Register(),
           ],
         ),
       ),
