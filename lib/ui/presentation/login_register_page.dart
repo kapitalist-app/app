@@ -38,7 +38,8 @@ class LoginRegisterPage extends StatelessWidget {
     final form = _keyForm.currentState;
 
     if (form.validate()) {
-      showSnackbar(_keyForm.currentContext, 'LOGIN/REGISTER: Email: $_keyEmail.currentState.value Password: $_keyPassword.currentState.value');
+      showSnackbar(_keyForm.currentContext,
+          'LOGIN/REGISTER: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
 
       onSubmit(_keyEmail.currentState.value, _keyPassword.currentState.value);
     }
@@ -48,7 +49,8 @@ class LoginRegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Form(
       key: _keyForm,
-      child: Column(
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 40.0),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25.0),
@@ -57,38 +59,36 @@ class LoginRegisterPage extends StatelessWidget {
               radius: 75.0,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(40.0),
-            child: TextFormField(
-              key: _keyEmail,
-              validator: (val) => _validateEmail(val),
-              decoration: InputDecoration(
-                labelText: 'Email',
-                prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 5.0),
-                    child: Icon(Icons.email)),
-              ),
+          SizedBox(height: 25.0),
+          TextFormField(
+            key: _keyEmail,
+            validator: (val) => _validateEmail(val),
+            decoration: InputDecoration(
+              labelText: 'Email',
+              prefixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Icon(Icons.email)),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40.0),
-            child: TextFormField(
-              key: _keyPassword,
-              validator: (val) => _validatePassword(val),
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Icon(Icons.vpn_key),
-                ),
+          SizedBox(height: 15.0),
+          TextFormField(
+            key: _keyPassword,
+            validator: (val) => _validatePassword(val),
+            obscureText: true,
+            decoration: InputDecoration(
+              labelText: 'Password',
+              prefixIcon: Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: Icon(Icons.vpn_key),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 35.0),
             child: MaterialButton(
-              child: Text('Login'),
+              child: Text(
+                signupState == SignupState.LOGIN ? 'Login' : 'Register',
+              ),
               color: Colors.green,
               minWidth: 250.0,
               onPressed: _submit,

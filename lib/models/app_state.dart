@@ -8,4 +8,9 @@ class AppState {
   factory AppState.initial() {
     return new AppState();
   }
+
+  @override
+  String toString() {
+      return 'AppState{}';
+    }
 }
