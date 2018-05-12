@@ -1,15 +1,19 @@
 name: kapitalist
-description: A new Flutter project.
+description: Kapitalist app for both Android and iOS
 
 dependencies:
+  # Flutter
   flutter:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.0
 
+  # Charting
   charts_flutter: ^0.2.0
+
+  # Util
+  http: ^0.11.3+16
+
+  # Redux & friends
   redux: ^3.0.0
   flutter_redux: ^0.5.0
   redux_dev_tools: ^0.4.0

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kapitalist/ui/containers/login.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
@@ -37,23 +38,17 @@ class _KapitalistAppState extends State<KapitalistApp> {
       store: widget.store,
       child: MaterialApp(
         title: 'Kapitalist',
+        // TODO: investigate why the keyboard only works when login is home instead of regular route
+        home: new Login(),
         routes: {
+          /*KapitalistRoutes.ROOT: (ctx) {
+            return new Login();
+          },*/
           KapitalistRoutes.HOME: (ctx) {
-            return new StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(null),
-              builder: (ctx, store) {
-                return MainPage(widget.store);
-              },
-            );
+            return new MainPage(widget.store);
           },
           KapitalistRoutes.ADD_TRANSACTION: (ctx) {
-            return new StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(null),
-              builder: (ctx, store) {
-                // TODO: Implement
-                return Container();
-              },
-            );
+            return new Container();
           },
         },
       ),

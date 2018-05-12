@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+import 'package:kapitalist/models/common/signup_state.dart';
+import 'package:kapitalist/routes.dart';
 import 'package:kapitalist/ui/util.dart';
 
-// TODO: Make page scroll up when keyboard is extended
-
-enum SignupState {
-  LOGIN,
-  REGISTER,
-}
-
-typedef OnSubmitCallback = Function(String email, String password);
+typedef _Validator = String Function(String val);
+typedef OnSubmitCallback = void Function(String email, String password);
 
 class LoginRegisterPage extends StatelessWidget {
   final _keyForm = new GlobalKey<FormState>();
@@ -42,59 +38,63 @@ class LoginRegisterPage extends StatelessWidget {
           'LOGIN/REGISTER: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
 
       onSubmit(_keyEmail.currentState.value, _keyPassword.currentState.value);
+
+      // TODO: This is temporary and should fire on login complete
+      Navigator.pushReplacementNamed(_keyForm.currentContext, KapitalistRoutes.HOME);
     }
+  }
+
+  Widget _buildAppIcon() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      child: CircleAvatar(
+        backgroundColor: Colors.green,
+        radius: 75.0,
+      ),
+    );
+  }
+
+  Widget _buildTextField(Key key, String labelText, IconData icon, _Validator fn, {TextInputType inputType, bool obscure}) {
+    return TextFormField(
+      key: key,
+      keyboardType: inputType ?? TextInputType.text,
+      obscureText: obscure ?? false,
+      validator: fn,
+      decoration: InputDecoration(
+        labelText: labelText,
+        prefixIcon: Padding(
+            padding: const EdgeInsets.only(right: 5.0), child: Icon(icon)),
+      ),
+    );
+  }
+
+  Widget _buildButton(String text) {
+    return MaterialButton(
+      child: Text(text),
+      color: Colors.green,
+      minWidth: 250.0,
+      onPressed: _submit,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Form(
-      key: _keyForm,
-      child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 25.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.green,
-              radius: 75.0,
-            ),
-          ),
-          SizedBox(height: 25.0),
-          TextFormField(
-            key: _keyEmail,
-            validator: (val) => _validateEmail(val),
-            decoration: InputDecoration(
-              labelText: 'Email',
-              prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Icon(Icons.email)),
-            ),
-          ),
-          SizedBox(height: 15.0),
-          TextFormField(
-            key: _keyPassword,
-            validator: (val) => _validatePassword(val),
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Password',
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(right: 5.0),
-                child: Icon(Icons.vpn_key),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 35.0),
-            child: MaterialButton(
-              child: Text(
-                signupState == SignupState.LOGIN ? 'Login' : 'Register',
-              ),
-              color: Colors.green,
-              minWidth: 250.0,
-              onPressed: _submit,
-            ),
-          )
-        ],
+    return new Scaffold(
+      body: Form(
+        key: _keyForm,
+        child: ListView(
+          //padding: const EdgeInsets.symmetric(horizontal: 45.0),
+          padding: const EdgeInsets.all(45.0),
+          children: <Widget>[
+            _buildAppIcon(),
+            const SizedBox(height: 40.0),
+            _buildTextField(_keyEmail, 'Email', Icons.email, _validateEmail, inputType: TextInputType.emailAddress),
+            const SizedBox(height: 15.0),
+            _buildTextField(_keyPassword, 'Password', Icons.vpn_key, _validatePassword, obscure: true),
+            const SizedBox(height: 40.0),
+            _buildButton(signupState == SignupState.LOGIN ? 'Login' : 'Register'),
+          ],
+        ),
       ),
     );
   }

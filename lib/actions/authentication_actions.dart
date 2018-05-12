@@ -1,31 +1,34 @@
 import 'package:meta/meta.dart';
 
+import 'package:kapitalist/models/api/kapitalist_token.dart';
+import 'package:kapitalist/models/common/signup_state.dart';
+
 @immutable
-class RequestLoginAction {
+class AuthenticationRequestedAction {
+  final SignupState signupState;
   final String email;
   final String password;
 
-  RequestLoginAction(
+  AuthenticationRequestedAction(
+    this.signupState,
     this.email,
     this.password,
   );
 
   @override
   String toString() =>
-    'RequestLoginAction{email: $email, password: $password}';
+    'AuthenticationRequestedAction{signupState: $signupState, email: $email, password: $password}';
 }
 
 @immutable
-class RequestRegisterAction {
-  final String email;
-  final String password;
+class AuthenticationCompletedAction {
+  final KapitalistToken token;
 
-  RequestRegisterAction(
-    this.email,
-    this.password,
+  AuthenticationCompletedAction(
+      this.token,
   );
 
   @override
   String toString() =>
-    'RequestRegisterAction{email: $email, password: $password}';
+      'AuthenticationCompletedAction{token: $token}';
 }
