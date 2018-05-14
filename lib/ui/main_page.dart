@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                 BalanceChartCard(),
               ],
             ),
-            Register(),
+            DrawerPage(),
           ],
         ),
       ),
