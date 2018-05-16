@@ -1,4 +1,4 @@
-package com.example.kapitalist;
+package org.kapitalist.app;
 
 import android.os.Bundle;
 
