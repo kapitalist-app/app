@@ -11,9 +11,6 @@ import 'package:kapitalist/models/app_state.dart';
 import 'package:kapitalist/ui/main_page.dart';
 
 Future<Null> main() async {
-  // ignore: deprecated_member_use
-  MaterialPageRoute.debugEnableFadingRoutes = true;
-
   var store = await createStore();
   runApp(new KapitalistApp(store));
 }
