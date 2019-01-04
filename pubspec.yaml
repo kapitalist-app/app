@@ -13,12 +13,6 @@ dependencies:
   # Util
   http: ^0.11.3+16
 
-  # Redux & friends
-  redux: ^3.0.0
-  flutter_redux: ^0.5.0
-  redux_dev_tools: ^0.4.0
-  flutter_redux_dev_tools: ^0.3.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

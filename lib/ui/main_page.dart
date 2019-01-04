@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_redux_dev_tools/flutter_redux_dev_tools.dart';
 
 import 'package:kapitalist/models/app_state.dart';
 import 'package:kapitalist/ui/drawer_page.dart';
-import 'package:kapitalist/ui/containers/register.dart';
 import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
 
 // FIXME: Remove this and properly structure app
 import 'package:kapitalist/ui/cards/balance_chart_card.dart';
 
 class MainPage extends StatefulWidget {
-  final Store store;
-
-  MainPage(this.store);
+  MainPage();
 
   @override
   _MainPageState createState() => new _MainPageState();
@@ -43,10 +38,6 @@ class _MainPageState extends State<MainPage> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {},
-        ),
-        endDrawer: new Container(
-          color: Colors.white,
-          child: ReduxDevTools<AppState>(widget.store),
         ),
         body: TabBarView(
           children: [

@@ -1,23 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:kapitalist/ui/containers/login.dart';
-import 'package:redux/redux.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/routes.dart';
-import 'package:kapitalist/store.dart';
-import 'package:kapitalist/models/app_state.dart';
 import 'package:kapitalist/ui/main_page.dart';
+import 'package:kapitalist/ui/presentation/login_register_page.dart';
 
 Future<Null> main() async {
-  var store = await createStore();
-  runApp(new KapitalistApp(store));
+  runApp(new KapitalistApp());
 }
 
 class KapitalistApp extends StatefulWidget {
-  final Store<AppState> store;
-  KapitalistApp(this.store);
+  KapitalistApp();
 
   @override
   _KapitalistAppState createState() => new _KapitalistAppState();
@@ -31,24 +25,21 @@ class _KapitalistAppState extends State<KapitalistApp> {
   }
 
   Widget build(BuildContext context) {
-    return new StoreProvider<AppState>(
-      store: widget.store,
-      child: MaterialApp(
+    return new MaterialApp(
         title: 'Kapitalist',
         // TODO: investigate why the keyboard only works when login is home instead of regular route
-        home: new Login(),
+        home: new LoginRegisterPage(),
         routes: {
           /*KapitalistRoutes.ROOT: (ctx) {
             return new Login();
           },*/
           KapitalistRoutes.HOME: (ctx) {
-            return new MainPage(widget.store);
+            return new MainPage();
           },
           KapitalistRoutes.ADD_TRANSACTION: (ctx) {
             return new Container();
           },
         },
-      ),
     );
   }
 }
