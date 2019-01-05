@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/models/common/signup_state.dart';
 import 'package:kapitalist/routes.dart';
+import 'package:kapitalist/blocs/authentication_bloc.dart';
 import 'package:kapitalist/ui/util.dart';
 
 typedef _Validator = String Function(String val);
 typedef OnSubmitCallback = void Function(String email, String password);
+
+enum SignupState {
+  LOGIN,
+  REGISTER,
+}
 
 class LoginRegisterPage extends StatelessWidget {
   final _keyForm = new GlobalKey<FormState>();
   final _keyEmail = new GlobalKey<FormFieldState<String>>();
   final _keyPassword = new GlobalKey<FormFieldState<String>>();
 
-  final OnSubmitCallback onSubmit;
   final SignupState signupState;
+  final AuthenticationBloc bloc;
 
   LoginRegisterPage({
     Key key,
-    @required this.onSubmit,
     @required this.signupState,
+    @required this.bloc,
   }) : super(key: key ?? null);
 
   String _validateEmail(String email) {
@@ -37,7 +42,7 @@ class LoginRegisterPage extends StatelessWidget {
       showSnackbar(_keyForm.currentContext,
           'LOGIN/REGISTER: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
 
-      onSubmit(_keyEmail.currentState.value, _keyPassword.currentState.value);
+      bloc.login.add(LoginRegisterData(_keyEmail.currentState.value, _keyPassword.currentState.value));
 
       // TODO: This is temporary and should fire on login complete
       Navigator.pushReplacementNamed(_keyForm.currentContext, KapitalistRoutes.HOME);

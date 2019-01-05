@@ -1,4 +1,0 @@
-enum SignupState {
-  LOGIN,
-  REGISTER,
-}

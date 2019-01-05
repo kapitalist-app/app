@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/models/app_state.dart';
-import 'package:kapitalist/ui/drawer_page.dart';
+import 'package:kapitalist/ui/pages/drawer_page.dart';
 import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
 
 // FIXME: Remove this and properly structure app

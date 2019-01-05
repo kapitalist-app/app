@@ -1,1 +1,0 @@
-export 'package:kapitalist/models/state/user_state.dart';
