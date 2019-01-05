@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+import 'package:kapitalist/api/kapitalist_api.dart';
 
 class LoginRegisterData {
   final String email;
@@ -10,38 +11,42 @@ class LoginRegisterData {
 }
 
 class AuthenticationBloc {
+  // Backing Api
+  final KapitalistApi api;
+
   // Inputs
-  final Sink<LoginRegisterData> login;
-  final Sink<LoginRegisterData> register;
+  Sink<LoginRegisterData> get login => _loginController.sink;
+  Sink<LoginRegisterData> get register => _registerController.sink;
 
   // Outputs
   Stream<bool> get loginState => _loginStateSubject.stream;
 
   // Private
+  final _loginController = StreamController<LoginRegisterData>();
+  final _registerController = StreamController<LoginRegisterData>();
+
   final _loginStateSubject = BehaviorSubject<bool>();
 
-  AuthenticationBloc._(
-    this.login,
-    this.register,
-  );
+  AuthenticationBloc(this.api) {
+    // Set initial state
+    // XXX: TODO
 
-  factory AuthenticationBloc(/*KapitalistApi api*/) {
-    final login = StreamController<LoginRegisterData>(sync: true);
-    final register = StreamController<LoginRegisterData>(sync: true);
+    // Wire up input streams
+    _loginController.stream.listen(_performLogin);
+    _registerController.stream.listen(_performRegister);
+  }
 
-    login.stream.listen((loginData) {
-      print('LOGIN: ${loginData.email}:${loginData.password}');
-    });
+  void _performLogin(LoginRegisterData data) {
+    print('LOGIN: ${data.email}:${data.password}');
+  }
 
-    return AuthenticationBloc._(
-      login,
-      register
-    );
+  void _performRegister(LoginRegisterData data) {
+    print('REGISTER: ${data.email}:${data.password}');
   }
 
   void dispose() {
-    login.close();
-    register.close();
+    _loginController.close();
+    _registerController.close();
 
     _loginStateSubject.close();
   }
