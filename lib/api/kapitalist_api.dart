@@ -21,7 +21,7 @@ class KapitalistApi {
   KapitalistApi();
 
   Map<String, String> _getHeaders() {
-    return {HttpHeaders.AUTHORIZATION: 'Bearer: ${_token.token}'};
+    return {HttpHeaders.authorizationHeader: 'Bearer: ${_token.token}'};
   }
 
   Future<KapitalistToken> register(String email, String password) async {
@@ -34,7 +34,14 @@ class KapitalistApi {
       'email': email,
       'password': password,
     });
+    if (resp.statusCode != HttpStatus.ok) {
+      throw new Exception("Unauthorized");
+    }
     return json.decode(resp.body);
+  }
+
+  void setToken(KapitalistToken token) {
+    _token = token;
   }
 
   Future<dynamic> get(String url) async {
@@ -44,7 +51,7 @@ class KapitalistApi {
         final String body = resp.body;
         final int code = resp.statusCode;
 
-        if (code == HttpStatus.UNAUTHORIZED) {
+        if (code == HttpStatus.unauthorized) {
           // Retry? but only once
         }
         else if (code > 400) {

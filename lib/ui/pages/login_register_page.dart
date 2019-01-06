@@ -25,7 +25,13 @@ class LoginRegisterPage extends StatelessWidget {
     Key key,
     @required this.signupState,
     @required this.bloc,
-  }) : super(key: key ?? null);
+  }) : super(key: key ?? null) {
+    bloc.loginState.listen((state) {
+      if (state) {
+        Navigator.pushReplacementNamed(_keyForm.currentContext, KapitalistRoutes.HOME);
+      }
+    });
+  }
 
   String _validateEmail(String email) {
     return email.contains('@') ? null : 'Invalid email';
@@ -37,15 +43,18 @@ class LoginRegisterPage extends StatelessWidget {
 
   void _submit() {
     final form = _keyForm.currentState;
-
     if (form.validate()) {
-      showSnackbar(_keyForm.currentContext,
-          'LOGIN/REGISTER: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
+      if (signupState == SignupState.LOGIN) {
+        showSnackbar(_keyForm.currentContext,
+          'LOGIN: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
 
-      bloc.login.add(LoginRegisterData(_keyEmail.currentState.value, _keyPassword.currentState.value));
+        bloc.login.add(LoginRegisterData(_keyEmail.currentState.value, _keyPassword.currentState.value));
+      } else {
+        showSnackbar(_keyForm.currentContext,
+          'REGISTER: Email: ${_keyEmail.currentState.value} Password: ${_keyPassword.currentState.value}');
 
-      // TODO: This is temporary and should fire on login complete
-      Navigator.pushReplacementNamed(_keyForm.currentContext, KapitalistRoutes.HOME);
+        bloc.register.add(LoginRegisterData(_keyEmail.currentState.value, _keyPassword.currentState.value));
+      }
     }
   }
 

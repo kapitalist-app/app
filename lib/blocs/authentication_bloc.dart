@@ -12,7 +12,7 @@ class LoginRegisterData {
 
 class AuthenticationBloc {
   // Backing Api
-  final KapitalistApi api;
+  final KapitalistApi _api;
 
   // Inputs
   Sink<LoginRegisterData> get login => _loginController.sink;
@@ -27,7 +27,7 @@ class AuthenticationBloc {
 
   final _loginStateSubject = BehaviorSubject<bool>();
 
-  AuthenticationBloc(this.api) {
+  AuthenticationBloc(this._api) {
     // Set initial state
     // XXX: TODO
 
@@ -40,8 +40,12 @@ class AuthenticationBloc {
     print('LOGIN: ${data.email}:${data.password}');
   }
 
-  void _performRegister(LoginRegisterData data) {
+  void _performRegister(LoginRegisterData data) async {
     print('REGISTER: ${data.email}:${data.password}');
+    final token = await _api.register(data.email, data.password);
+    print('TOKEN: ${token}');
+    _api.setToken(token);
+    _loginStateSubject.sink.add(true);
   }
 
   void dispose() {
