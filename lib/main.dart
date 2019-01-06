@@ -26,7 +26,7 @@ class KapitalistApp extends StatelessWidget {
       title: 'Kapitalist',
       // TODO: investigate why the keyboard only works when login is home instead of regular route
       home: new LoginRegisterPage(
-        signupState: SignupState.REGISTER,
+        signupState: SignupState.LOGIN,
         bloc: Provider.of<KapitalistBloc>(context).authBloc,
       ),
       routes: {

@@ -14,14 +14,17 @@ class KapitalistApi {
   // Authentication related
   String _email;
   String _password;
-
   KapitalistToken _token;
 
   // Constructor
   KapitalistApi();
 
-  Map<String, String> _getHeaders() {
-    return {HttpHeaders.authorizationHeader: 'Bearer: ${_token.token}'};
+  Map<String, String> _getHeaders(bool withToken) {
+    var map = {HttpHeaders.contentTypeHeader: 'application/json'};
+    if (withToken) {
+      map.addAll({HttpHeaders.authorizationHeader: 'Bearer: ${_token.token}'});
+    }
+    return map;
   }
 
   Future<KapitalistToken> register(String email, String password) async {
@@ -30,35 +33,61 @@ class KapitalistApi {
     _password = password;
 
     // Do register
-    http.Response resp = await http.post(BASE_URI.replace(path: '/register'), body: {
-      'email': email,
-      'password': password,
-    });
+    print('Performing request: ${BASE_URI.replace(path: '/register')}');
+    final resp = await http.post(BASE_URI.replace(path: '/register'),
+        headers: _getHeaders(false),
+        body: json.encode({
+          'email': _email,
+          'password': _password,
+          'name': _email,
+        }));
     if (resp.statusCode != HttpStatus.ok) {
       throw new Exception("Unauthorized");
     }
-    return json.decode(resp.body);
+
+    // Get token
+    return _refreshToken();
   }
 
-  void setToken(KapitalistToken token) {
-    _token = token;
+  Future<KapitalistToken> login(String email, String password) async {
+    // Save credentials for possible token refresh
+    _email = email;
+    _password = password;
+
+    // Get token
+    return _refreshToken();
   }
 
-  Future<dynamic> get(String url) async {
+  Future<KapitalistToken> _refreshToken() async {
+    final resp = await http.post(BASE_URI.replace(path: '/token'),
+        headers: _getHeaders(false),
+        body: json.encode({
+          'email': _email,
+          'password': _password,
+        }));
+    if (resp.statusCode != HttpStatus.ok) {
+      throw new Exception("Unauthorized");
+    }
+    print(resp.body);
+    print(json.decode(resp.body));
+    _token = json.decode(resp.body);
+    return _token;
+  }
+
+  Future<dynamic> _get(String url) async {
     return http
-        .get(BASE_URI.replace(path: url), headers: _getHeaders())
+        .get(BASE_URI.replace(path: url), headers: _getHeaders(true))
         .then((resp) {
-        final String body = resp.body;
-        final int code = resp.statusCode;
+      final String body = resp.body;
+      final int code = resp.statusCode;
 
-        if (code == HttpStatus.unauthorized) {
-          // Retry? but only once
-        }
-        else if (code > 400) {
-          throw new Exception("Error while fetching data..");
-        }
+      if (code == HttpStatus.unauthorized) {
+        // Retry? but only once
+      } else if (code > 400) {
+        throw new Exception("Error while fetching data..");
+      }
 
-        return json.decode(body);
+      return json.decode(body);
     });
   }
 }

@@ -36,16 +36,26 @@ class AuthenticationBloc {
     _registerController.stream.listen(_performRegister);
   }
 
-  void _performLogin(LoginRegisterData data) {
+  void _performLogin(LoginRegisterData data) async {
     print('LOGIN: ${data.email}:${data.password}');
+    try {
+      final token = await _api.login(data.email, data.password);
+      print('TOKEN: ${token}');
+      _loginStateSubject.sink.add(true);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _performRegister(LoginRegisterData data) async {
     print('REGISTER: ${data.email}:${data.password}');
-    final token = await _api.register(data.email, data.password);
-    print('TOKEN: ${token}');
-    _api.setToken(token);
-    _loginStateSubject.sink.add(true);
+    try {
+      final token = await _api.register(data.email, data.password);
+      print('TOKEN: ${token}');
+      _loginStateSubject.sink.add(true);
+    } catch (e) {
+      print(e);
+    }
   }
 
   void dispose() {
