@@ -11,11 +11,13 @@ import 'package:kapitalist/ui/main_page.dart';
 import 'package:kapitalist/ui/pages/login_register_page.dart';
 
 main() {
-  runApp(BlocProvider<KapitalistBloc>(
+  var api = KapitalistApi();
+  var app = BlocProvider<KapitalistBloc>(
       builder: (_, bloc) =>
-          bloc ?? KapitalistBloc(authBloc: AuthenticationBloc(KapitalistApi())),
+          bloc ?? KapitalistBloc(authBloc: AuthenticationBloc(api)),
       onDispose: (_, bloc) => bloc.dispose(),
-      child: new KapitalistApp()));
+      child: new KapitalistApp());
+  runApp(app);
 }
 
 class KapitalistApp extends StatelessWidget {
