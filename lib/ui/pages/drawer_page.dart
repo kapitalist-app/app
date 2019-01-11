@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:kapitalist/blocs/authentication_bloc.dart';
+import 'package:kapitalist/routes.dart';
+
 class DrawerPage extends StatelessWidget {
+  final AuthenticationBloc bloc;
+
+  DrawerPage({@required this.bloc});
+
   Widget _buildHeader(String email) {
     return new Stack(
       children: <Widget>[
@@ -39,20 +46,26 @@ class DrawerPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNavigationItems() {
+  Widget _buildNavigationItems(BuildContext ctx) {
     return new Column(
       children: <Widget>[
-        Text('Reports etc..'),
+        MaterialButton(
+          child: Text('Create wallet'),
+          onPressed: () {
+            Navigator.of(ctx).pushNamed(KapitalistRoutes.NEW_WALLET);
+          },
+        ),
       ],
     );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext ctx) {
     return new Column(
       children: <Widget>[
-        _buildHeader('email@example.com'),
-        _buildNavigationItems(),
+        // XXX: Read and refresh this from bloc
+        _buildHeader('user@example.com'),
+        _buildNavigationItems(ctx),
       ],
     );
   }

@@ -1,58 +1,53 @@
 import 'dart:async';
 
 import 'package:rxdart/rxdart.dart';
+
 import 'package:kapitalist/api/kapitalist_api.dart';
-
-class LoginRegisterData {
-  final String email;
-  final String password;
-
-  LoginRegisterData(this.email, this.password);
-}
+import 'package:kapitalist/models/register_login_data.dart';
 
 class AuthenticationBloc {
   // Backing Api
   final KapitalistApi _api;
 
   // Inputs
-  Sink<LoginRegisterData> get login => _loginController.sink;
-  Sink<LoginRegisterData> get register => _registerController.sink;
+  Sink<RegisterLoginData> get login => _loginController.sink;
+  Sink<RegisterLoginData> get register => _registerController.sink;
 
   // Outputs
   Stream<bool> get loginState => _loginStateSubject.stream;
+  Stream<String> get userName => _userNameSubject.stream;
 
   // Private
-  final _loginController = StreamController<LoginRegisterData>();
-  final _registerController = StreamController<LoginRegisterData>();
+  final _loginController = StreamController<RegisterLoginData>();
+  final _registerController = StreamController<RegisterLoginData>();
 
   final _loginStateSubject = BehaviorSubject<bool>();
+  final _userNameSubject = BehaviorSubject<String>();
 
   AuthenticationBloc(this._api) {
     // Set initial state
     // XXX: TODO
 
     // Wire up input streams
-    _loginController.stream.listen(_performLogin);
-    _registerController.stream.listen(_performRegister);
+    _loginController.stream.listen(_onLogin);
+    _registerController.stream.listen(_onRegister);
   }
 
-  void _performLogin(LoginRegisterData data) async {
-    print('LOGIN: ${data.email}:${data.password}');
+  void _onLogin(RegisterLoginData data) async {
     try {
-      final token = await _api.login(data.email, data.password);
-      print('TOKEN: ${token}');
+      await _api.login(data.email, data.password);
       _loginStateSubject.sink.add(true);
+      _userNameSubject.sink.add(data.email);
     } catch (e) {
       print(e);
     }
   }
 
-  void _performRegister(LoginRegisterData data) async {
-    print('REGISTER: ${data.email}:${data.password}');
+  void _onRegister(RegisterLoginData data) async {
     try {
-      final token = await _api.register(data.email, data.password);
-      print('TOKEN: ${token}');
+      await _api.register(data.email, data.password);
       _loginStateSubject.sink.add(true);
+      _userNameSubject.sink.add(data.email);
     } catch (e) {
       print(e);
     }
@@ -63,5 +58,6 @@ class AuthenticationBloc {
     _registerController.close();
 
     _loginStateSubject.close();
+    _userNameSubject.close();
   }
 }

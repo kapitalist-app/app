@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
 import 'package:kapitalist/models/auth_token.dart';
 import 'package:kapitalist/models/register_login_data.dart';
+import 'package:kapitalist/models/wallet_creation_request.dart';
 
 class KapitalistApi {
   // Base Uri
@@ -19,14 +19,6 @@ class KapitalistApi {
 
   // Constructor
   KapitalistApi();
-
-  Map<String, String> _getHeaders(bool withToken) {
-    var map = {HttpHeaders.contentTypeHeader: 'application/json'};
-    if (withToken) {
-      map.addAll({HttpHeaders.authorizationHeader: 'Bearer: ${_token.token}'});
-    }
-    return map;
-  }
 
   Future<AuthToken> register(String email, String password) async {
     // Save credentials for possible token refresh
@@ -58,6 +50,10 @@ class KapitalistApi {
     return _refreshToken();
   }
 
+  Future<String> createWallet(WalletCreationRequest req) async {
+    return await _post('/wallet', req.toJson());
+  }
+
   Future<AuthToken> _refreshToken() async {
     final req = RegisterLoginData((b) => b
           ..email = _email
@@ -73,39 +69,51 @@ class KapitalistApi {
     return _token;
   }
 
-  Future<String> _get(String url, {bool retry = false}) async {
+  Map<String, String> _getHeaders(bool withToken) {
+    var map = {HttpHeaders.contentTypeHeader: 'application/json'};
+    if (withToken) {
+      map.addAll({HttpHeaders.authorizationHeader: 'Bearer ${_token.token}'});
+    }
+    return map;
+  }
+
+  Future<String> _get(String path, {bool retry = false}) async {
     return http
-        .get(BASE_URI.replace(path: url), headers: _getHeaders(true))
+        .get(BASE_URI.replace(path: path), headers: _getHeaders(true))
         .then((resp) {
+      print('get: ${resp.request}');
+      print('get headers: ${resp.request.headers}');
       final String body = resp.body;
       final int code = resp.statusCode;
 
       if (code == HttpStatus.unauthorized && !retry) {
         // Refresh token and retry once
-        return _refreshToken().then((_) => _get(url, retry: true));
+        return _refreshToken().then((_) => _get(path, retry: true));
       } else if (code > 400) {
-        throw new Exception(
-            "Error while GETing ${BASE_URI.replace(path: url)}");
+        throw Exception(
+            "Error while GETing ${BASE_URI.replace(path: path)}");
       }
 
       return body;
     });
   }
 
-  Future<String> _post(String url, String payload, {bool retry = false}) async {
+  Future<String> _post(String path, String payload, {bool retry = false}) async {
     return http
-        .post(BASE_URI.replace(path: url),
+        .post(BASE_URI.replace(path: path),
             body: payload, headers: _getHeaders(true))
         .then((resp) {
+      print('post: ${resp.request}');
+      print('post headers: ${resp.request.headers}');
       final String body = resp.body;
       final int code = resp.statusCode;
 
       if (code == HttpStatus.unauthorized && !retry) {
         // Refresh token and retry once
-        return _refreshToken().then((_) => _post(url, payload, retry: true));
+        return _refreshToken().then((_) => _post(path, payload, retry: true));
       } else if (code > 400) {
-        throw new Exception(
-            "Error while POSTing ${BASE_URI.replace(path: url)}");
+        throw Exception(
+            "Error while POSTing ${BASE_URI.replace(path: path)}");
       }
 
       return body;
