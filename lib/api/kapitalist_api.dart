@@ -9,8 +9,7 @@ import 'package:kapitalist/models/wallet_creation_request.dart';
 
 class KapitalistApi {
   // Base Uri
-  // TODO: read this from user and save in shared prefs
-  static final BASE_URI = new Uri.http('10.0.2.2:3000', '/');
+  final Uri _baseUri;
 
   // Authentication related
   String _email;
@@ -18,9 +17,15 @@ class KapitalistApi {
   AuthToken _token;
 
   // Constructor
-  KapitalistApi();
+  KapitalistApi(this._baseUri);
 
-  Future<AuthToken> register(String email, String password) async {
+  bool setCredentials(String email, String password) {
+    _email = email;
+    _password = password;
+    return _refreshToken() != null;
+  }
+
+  Future<bool> register(String email, String password) async {
     // Save credentials for possible token refresh
     _email = email;
     _password = password;
@@ -30,7 +35,7 @@ class KapitalistApi {
           ..email = _email
           ..password = _password).toJson();
     // XXX: Replace this with _post
-    final resp = await http.post(BASE_URI.replace(path: '/register'),
+    final resp = await http.post(_baseUri.replace(path: '/register'),
         headers: _getHeaders(false),
         body: req);
     if (resp.statusCode != HttpStatus.ok) {
@@ -38,16 +43,16 @@ class KapitalistApi {
     }
 
     // Get token
-    return _refreshToken();
+    return _refreshToken() != null;
   }
 
-  Future<AuthToken> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     // Save credentials for possible token refresh
     _email = email;
     _password = password;
 
     // Get token
-    return _refreshToken();
+    return _refreshToken() != null;
   }
 
   Future<String> createWallet(WalletCreationRequest req) async {
@@ -59,12 +64,14 @@ class KapitalistApi {
           ..email = _email
           ..password = _password).toJson();
 
-    final resp = await http.post(BASE_URI.replace(path: '/token'),
+    final resp = await http.post(_baseUri.replace(path: '/token'),
         headers: _getHeaders(false),
         body: req);
     if (resp.statusCode != HttpStatus.ok) {
-      throw new Exception("Unauthorized");
+      return null;
     }
+
+    // Save the token for later use
     _token = AuthToken.fromJson(resp.body);
     return _token;
   }
@@ -79,7 +86,7 @@ class KapitalistApi {
 
   Future<String> _get(String path, {bool retry = false}) async {
     return http
-        .get(BASE_URI.replace(path: path), headers: _getHeaders(true))
+        .get(_baseUri.replace(path: path), headers: _getHeaders(true))
         .then((resp) {
       print('get: ${resp.request}');
       print('get headers: ${resp.request.headers}');
@@ -91,7 +98,7 @@ class KapitalistApi {
         return _refreshToken().then((_) => _get(path, retry: true));
       } else if (code > 400) {
         throw Exception(
-            "Error while GETing ${BASE_URI.replace(path: path)}");
+            "Error while GETing ${_baseUri.replace(path: path)}");
       }
 
       return body;
@@ -100,7 +107,7 @@ class KapitalistApi {
 
   Future<String> _post(String path, String payload, {bool retry = false}) async {
     return http
-        .post(BASE_URI.replace(path: path),
+        .post(_baseUri.replace(path: path),
             body: payload, headers: _getHeaders(true))
         .then((resp) {
       print('post: ${resp.request}');
@@ -113,7 +120,7 @@ class KapitalistApi {
         return _refreshToken().then((_) => _post(path, payload, retry: true));
       } else if (code > 400) {
         throw Exception(
-            "Error while POSTing ${BASE_URI.replace(path: path)}");
+            "Error while POSTing ${_baseUri.replace(path: path)}");
       }
 
       return body;

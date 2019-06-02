@@ -1,3 +1,3 @@
-class Assets {
+class KapitalistAssets {
   static const EXAMPLE = '..';
 }

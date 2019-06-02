@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/blocs/bloc_provider.dart';
-import 'package:kapitalist/blocs/kapitalist_bloc.dart';
 import 'package:kapitalist/ui/pages/drawer_page.dart';
 import 'package:kapitalist/ui/pages/wallet_page.dart';
 import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
@@ -19,7 +17,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext ctx) {
-    final bloc = Provider.of<KapitalistBloc>(ctx);
     // TODO: Remove this and add controller to page
     return DefaultTabController(
       length: 3,
@@ -36,7 +33,7 @@ class _MainPageState extends State<MainPage> {
           title: Text('Kapitalist'),
         ),
         drawer: Drawer(
-          child: new DrawerPage(bloc: bloc.authBloc),
+          child: new DrawerPage(),
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
@@ -50,9 +47,7 @@ class _MainPageState extends State<MainPage> {
                 BalanceChartCard(),
               ],
             ),
-            WalletPage(
-              bloc: bloc.walletBloc
-            ),
+            WalletPage(),
           ],
         ),
       ),

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kapitalist/redux/app/app_state.dart';
 
-import 'package:kapitalist/blocs/authentication_bloc.dart';
 import 'package:kapitalist/routes.dart';
 
 class DrawerPage extends StatelessWidget {
-  final AuthenticationBloc bloc;
 
-  DrawerPage({@required this.bloc});
+  const DrawerPage();
 
-  Widget _buildHeader(String email) {
+  Widget _buildHeader() {
     return new Stack(
       children: <Widget>[
         Container(
@@ -38,7 +38,10 @@ class DrawerPage extends StatelessWidget {
                   fontSize: 16.0,
                 ),
               ),
-              Text(email),
+              StoreConnector<AppState, String>(
+                converter: (store) => store.state.authState.email,
+                builder: (BuildContext ctx, String email) => Text(email),
+              ),
             ],
           ),
         ),
@@ -63,8 +66,7 @@ class DrawerPage extends StatelessWidget {
   Widget build(BuildContext ctx) {
     return new Column(
       children: <Widget>[
-        // XXX: Read and refresh this from bloc
-        _buildHeader('user@example.com'),
+        _buildHeader(),
         _buildNavigationItems(ctx),
       ],
     );

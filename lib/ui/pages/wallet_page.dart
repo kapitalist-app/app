@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:kapitalist/blocs/bloc_provider.dart';
-import 'package:kapitalist/blocs/kapitalist_bloc.dart';
-import 'package:kapitalist/blocs/wallet_bloc.dart';
 import 'package:kapitalist/models/wallet_creation_request.dart';
+import 'package:kapitalist/redux/app/app_state.dart';
+import 'package:kapitalist/redux/wallet/wallet_actions.dart';
 import 'package:kapitalist/ui/pages/drawer_page.dart';
 import 'package:kapitalist/ui/widgets/drop_down_form_field.dart';
 import 'package:kapitalist/ui/util.dart';
 
 class WalletPage extends StatefulWidget {
-  final WalletBloc bloc;
 
   WalletPage({
     Key key,
-    @required this.bloc,
   }) : super(key: key ?? null);
 
   @override
@@ -55,7 +53,9 @@ class _WalletPageState extends State<WalletPage> {
         ..walletType = type
         ..balance = balance
         ..color = color);
-      widget.bloc.createWallet.add(req);
+      final store = StoreProvider.of<AppState>(context);
+      store.dispatch(CreateWalletAction(request: req));
+      // XXX: This should only happen after the event was confirmed?
       Navigator.of(ctx).pop();
     }
   }
@@ -74,7 +74,11 @@ class _WalletPageState extends State<WalletPage> {
           children: <Widget>[
             const SizedBox(height: 40.0),
             Util.buildTextFormField(
-                _keyName, 'Wallet name', Icons.monetization_on, _validateName),
+              _keyName,
+              'Wallet name',
+              _validateName,
+              icon: Icons.monetization_on,
+            ),
             const SizedBox(height: 15.0),
             DropdownButtonFormField(
                 key: _keyType,
@@ -89,11 +93,19 @@ class _WalletPageState extends State<WalletPage> {
                 validator: _validateType),
             const SizedBox(height: 15.0),
             Util.buildTextFormField(
-                _keyBalance, 'Balance', Icons.account_balance, _validateBalance,
-                inputType: TextInputType.number),
+              _keyBalance,
+              'Balance',
+              _validateBalance,
+              icon: Icons.account_balance,
+              inputType: TextInputType.number,
+            ),
             const SizedBox(height: 15.0),
             Util.buildTextFormField(
-                _keyColor, 'Color', Icons.color_lens, _validateColor),
+              _keyColor,
+              'Color',
+              _validateColor,
+              icon: Icons.color_lens,
+            ),
             const SizedBox(height: 40.0),
             MaterialButton(
               child: Text('Add Wallet'),

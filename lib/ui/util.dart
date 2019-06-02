@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Util {
-  static Widget buildTextFormField(Key key, String labelText, IconData icon,
-      FormFieldValidator<String> validator,
-      {TextInputType inputType, bool obscure}) {
+  static Widget buildTextFormField(Key key, String labelText, FormFieldValidator<String> validator,
+      {IconData icon, TextInputType inputType, bool obscure}) {
     return TextFormField(
       key: key,
       keyboardType: inputType ?? TextInputType.text,
@@ -16,6 +15,9 @@ class Util {
       ),
     );
   }
+
+  static Widget emptyExpanded()
+    => Expanded(child: Container());
 
   static void showSnackbar(BuildContext ctx, String msg) {
     final sb = new SnackBar(

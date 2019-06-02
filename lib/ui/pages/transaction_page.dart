@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:kapitalist/ui/util.dart';
 
-class TransactionPage extends StatelessWidget {
+class TransactionPage extends StatefulWidget {
+  @override
+  _TransactionPageState createState() {
+    return new _TransactionPageState();
+  }
+}
+
+class _TransactionPageState extends State<TransactionPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    // TODO: implement build
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add/Edit Transaction'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: Util.buildTextFormField(null, 'Name', (_) => null),
+          ),
+        ],
+      ),
+    );
   }
 }

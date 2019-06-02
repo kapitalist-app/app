@@ -1,5 +1,6 @@
 class KapitalistRoutes {
   static const ROOT = '/';
+  static const ONBOARDING = '/onboarding';
   static const LOGIN = '/login';
   static const HOME = '/home';
   static const NEW_TRANSACTION = '/new_transaction';
