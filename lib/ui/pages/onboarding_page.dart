@@ -50,6 +50,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       _buildHelloPage(),
       _buildUrlPage(),
       _buildSignupLoginPage(),
+      _buildFinalPage(),
     ];
   }
 
@@ -57,15 +58,25 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Widget build(BuildContext ctx) {
     final store = StoreProvider.of<AppState>(context);
     store.onChange.listen((data) {
-      // If we are already logged in => immediately move to HomePage
+      // If we are logged in..
       if (data.authState.loggedIn) {
-        print("Logged in!");
-        final navigator = Navigator.of(context);
-        navigator.pushReplacementNamed(KapitalistRoutes.HOME);
+        // ..and onboarding was already done -> Navigate to MainPage
+        if (data.onboardingDone) {
+          debugPrint("Login from existing credentials -> Navigating to MainPage");
+          final navigator = Navigator.of(context);
+          navigator.pushReplacementNamed(KapitalistRoutes.HOME);
+        }
+        // ..and onboarding was not done -> Show final page
+        else {
+          debugPrint("Login in onboarding -> Showing final page");
+          setState(() {
+            _idx = 3;
+          });
+        }
       }
       // If the baseUrl is set => Move to login/register page once(!)
       else if (data.apiState.baseUrl != null && _idx != 2) {
-        print("BaseUrl is/was set");
+        debugPrint("BaseUrl is/was set -> Skipping selection screen");
         setState(() {
           _idx = 2;
         });
@@ -116,6 +127,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   Widget _buildSignupLoginPage() {
+    // TODO: Add a way to switch between modes
+
     var title = _signupState == AuthType.REGISTER
         ? 'Register new account'
         : 'Login to your existing account';
@@ -146,6 +159,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
         )),
         Util.emptyExpanded(),
         _buildButton(_clickSignupLoginButton, true, text: buttonText),
+      ],
+    );
+  }
+
+  Widget _buildFinalPage() {
+    return Column(
+      children: <Widget>[
+        _buildLogoHeader(),
+        _buildTitle('You are all set!'),
+        _buildDescription(
+            'Click finish to start tracking your finances'),
+        Util.emptyExpanded(),
+        _buildButton(() async {
+          return true;
+        }, true),
       ],
     );
   }

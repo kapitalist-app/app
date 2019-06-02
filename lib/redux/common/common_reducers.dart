@@ -7,11 +7,3 @@ bool onboardingReducer(bool unboardingDone, dynamic action) {
 
   return unboardingDone;
 }
-
-Uri baseUrlReducer(Uri baseUrl, dynamic action) {
-  if (action is SetBaseUrlAction) {
-    return action.baseUrl;
-  }
-
-  return baseUrl;
-}

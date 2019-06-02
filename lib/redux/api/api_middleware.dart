@@ -1,10 +1,7 @@
-import 'package:http/http.dart';
 import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
 
-import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
-import 'package:kapitalist/redux/auth/auth_actions.dart';
 import 'package:kapitalist/redux/common/common_actions.dart';
 
 class ApiMiddleware extends MiddlewareClass<AppState> {
