@@ -19,12 +19,6 @@ class KapitalistApi {
   // Constructor
   KapitalistApi(this._baseUri);
 
-  bool setCredentials(String email, String password) {
-    _email = email;
-    _password = password;
-    return _refreshToken() != null;
-  }
-
   Future<bool> register(String email, String password) async {
     // Save credentials for possible token refresh
     _email = email;
@@ -39,6 +33,7 @@ class KapitalistApi {
         headers: _getHeaders(false),
         body: req);
     if (resp.statusCode != HttpStatus.ok) {
+      // TODO: API should not throw
       throw new Exception("Unauthorized");
     }
 
@@ -47,16 +42,17 @@ class KapitalistApi {
   }
 
   Future<bool> login(String email, String password) async {
-    // Save credentials for possible token refresh
+    // Login is essentially setting the credentials and trying to get a token
     _email = email;
     _password = password;
 
-    // Get token
     return _refreshToken() != null;
   }
 
   Future<String> createWallet(WalletCreationRequest req) async {
-    return await _post('/wallet', req.toJson());
+    final result = await _post('/wallet', req.toJson());
+    print("Result of createWallet: $result");
+    return result;
   }
 
   Future<AuthToken> _refreshToken() async {

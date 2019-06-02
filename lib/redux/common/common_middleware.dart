@@ -1,12 +1,11 @@
 import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
 
+import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/redux/common/common_actions.dart';
 
 class CommonMiddleware extends MiddlewareClass<AppState> {
-  static const String KEY_ONBOARDING_DONE = "__onboarding_done__";
-
   final KeyValueStore kvStore;
 
   CommonMiddleware(this.kvStore);
@@ -22,7 +21,7 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _loadOnboardingDone(Store<AppState> store) async {
-    final done = kvStore.getBool(KEY_ONBOARDING_DONE);
+    final done = kvStore.getBool(KapitalistKeys.ONBOARDING_DONE);
     print("Loaded onboardingDone: $done");
 
     if (done != null && done) {
@@ -31,7 +30,7 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _saveOnboardingDone() async {
-    await kvStore.setBool(KEY_ONBOARDING_DONE, true);
+    await kvStore.setBool(KapitalistKeys.ONBOARDING_DONE, true);
     print("Saved onboardingDone: true");
   }
 }

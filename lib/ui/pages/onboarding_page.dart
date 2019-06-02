@@ -1,7 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/redux/auth/auth_actions.dart';
@@ -41,6 +42,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int _idx = 0;
   // Signup state
   AuthType _signupState = AuthType.REGISTER;
+  // Stream subscription to the Store
+  StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -55,34 +58,42 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext ctx) {
-    final store = StoreProvider.of<AppState>(context);
-    store.onChange.listen((data) {
-      // If we are logged in..
-      if (data.authState.loggedIn) {
-        // ..and onboarding was already done -> Navigate to MainPage
-        if (data.onboardingDone) {
-          debugPrint("Login from existing credentials -> Navigating to MainPage");
-          final navigator = Navigator.of(context);
-          navigator.pushReplacementNamed(KapitalistRoutes.HOME);
+    if (_subscription == null) {
+      final store = StoreProvider.of<AppState>(context);
+      _subscription = store.onChange.listen((data) {
+        // If we are logged in..
+        if (data.authState.loggedIn) {
+          // ..and onboarding was already done -> Navigate to MainPage
+          if (data.onboardingDone) {
+            debugPrint(
+                "Login from existing credentials -> Navigating to MainPage");
+            final navigator = Navigator.of(context);
+            navigator.pushReplacementNamed(KapitalistRoutes.HOME);
+          }
+          // ..and onboarding was not done -> Show final page
+          else {
+            debugPrint("Login in onboarding -> Showing final page");
+            setState(() {
+              _idx = 3;
+            });
+          }
         }
-        // ..and onboarding was not done -> Show final page
-        else {
-          debugPrint("Login in onboarding -> Showing final page");
+        // If the baseUrl is set => Move to login/register page once(!)
+        else if (data.apiState.baseUrl != null && _idx != 2) {
+          debugPrint("BaseUrl is/was set -> Skipping selection screen");
           setState(() {
-            _idx = 3;
+            _idx = 2;
           });
         }
-      }
-      // If the baseUrl is set => Move to login/register page once(!)
-      else if (data.apiState.baseUrl != null && _idx != 2) {
-        debugPrint("BaseUrl is/was set -> Skipping selection screen");
-        setState(() {
-          _idx = 2;
-        });
-      }
-    });
-
+      });
+    }
 
     return Scaffold(
       body: Container(

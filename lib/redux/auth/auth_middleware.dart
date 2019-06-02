@@ -2,15 +2,13 @@ import 'package:http/http.dart';
 import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
 
+import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/redux/auth/auth_actions.dart';
 import 'package:kapitalist/redux/common/common_actions.dart';
 
 class AuthMiddleware extends MiddlewareClass<AppState> {
-  static const String KEY_EMAIL = "__email__";
-  static const String KEY_PASSWORD = "__password__";
-
   final Client client;
   final KeyValueStore kvStore;
 
@@ -44,8 +42,8 @@ class AuthMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _loadCredentials(Store<AppState> store) async {
-    final email = kvStore.getString(KEY_EMAIL);
-    final password = kvStore.getString(KEY_PASSWORD);
+    final email = kvStore.getString(KapitalistKeys.EMAIL);
+    final password = kvStore.getString(KapitalistKeys.PASSWORD);
 
     if (email != null && password != null) {
       print("Loaded credentials: email=$email, password=$password");
@@ -58,8 +56,8 @@ class AuthMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _saveCredentials(RegisterLoginData data) async {
-    await kvStore.setString(KEY_EMAIL, data.email);
-    await kvStore.setString(KEY_PASSWORD, data.password);
+    await kvStore.setString(KapitalistKeys.EMAIL, data.email);
+    await kvStore.setString(KapitalistKeys.PASSWORD, data.password);
     print("Saved credentials: email=${data.email}, password=${data.password}");
   }
 }
