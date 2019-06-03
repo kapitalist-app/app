@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:kapitalist/models/auth_token.dart';
 import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/models/wallet_creation_request.dart';
+import 'package:kapitalist/models/wallet_response.dart';
 
 class KapitalistApi {
   // Base Uri
@@ -49,10 +50,11 @@ class KapitalistApi {
     return _refreshToken() != null;
   }
 
-  Future<String> createWallet(WalletCreationRequest req) async {
-    final result = await _post('/wallet', req.toJson());
-    print("Result of createWallet: $result");
-    return result;
+  Future<WalletResponse> createWallet(WalletCreationRequest req) async {
+    final resp = await _post('/wallet', req.toJson());
+    final wallet = WalletResponse.fromJson(resp);
+    print("Result of createWallet: $wallet");
+    return wallet;
   }
 
   Future<AuthToken> _refreshToken() async {

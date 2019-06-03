@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 
 import 'package:kapitalist/models/wallet_creation_request.dart';
+import 'package:kapitalist/models/wallet_response.dart';
 
 class CreateWalletAction {
   final WalletCreationRequest request;
@@ -9,8 +10,7 @@ class CreateWalletAction {
 }
 
 class WalletCreatedAction {
-  // XXX: Change to walle type when it is available
-  final String wallet;
+  final WalletResponse wallet;
 
   WalletCreatedAction({@required this.wallet});
 }

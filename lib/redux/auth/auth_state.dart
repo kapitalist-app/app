@@ -1,7 +1,5 @@
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/models/auth_token.dart';
-
 class AuthState {
   const AuthState({
     @required this.email,

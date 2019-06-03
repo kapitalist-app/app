@@ -1,4 +1,3 @@
-import 'package:kapitalist/models/auth_token.dart';
 import 'package:kapitalist/models/register_login_data.dart';
 
 // XXX: Decide where this should go

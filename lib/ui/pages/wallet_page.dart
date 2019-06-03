@@ -4,8 +4,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:kapitalist/models/wallet_creation_request.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/redux/wallet/wallet_actions.dart';
-import 'package:kapitalist/ui/pages/drawer_page.dart';
-import 'package:kapitalist/ui/widgets/drop_down_form_field.dart';
 import 'package:kapitalist/ui/util.dart';
 
 class WalletPage extends StatefulWidget {

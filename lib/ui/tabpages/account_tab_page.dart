@@ -7,6 +7,7 @@ class AccountTabPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ListView(
       children: <Widget>[
+        WalletsCard(),
         BalanceCard(),
         //BalanceChartCard(),
         LastRecordsCard(),
