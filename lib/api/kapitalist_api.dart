@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import 'package:kapitalist/models/auth_token.dart';
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/models/wallet_creation_request.dart';
-import 'package:kapitalist/models/wallet_response.dart';
+import 'package:kapitalist/models/api/auth_token.dart';
+import 'package:kapitalist/models/api/wallet_creation_request.dart';
+import 'package:kapitalist/models/api/wallet_response.dart';
 
 class KapitalistApi {
   // Base Uri

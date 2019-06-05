@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:kapitalist/models/wallet_response.dart';
+import 'package:kapitalist/models/api/wallet_response.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/ui/cards/card_title.dart';
 

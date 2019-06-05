@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:kapitalist/models/wallet_creation_request.dart';
+import 'package:kapitalist/models/api/wallet_creation_request.dart';
 import 'package:kapitalist/redux/app/app_state.dart';
 import 'package:kapitalist/redux/wallet/wallet_actions.dart';
 import 'package:kapitalist/ui/util.dart';

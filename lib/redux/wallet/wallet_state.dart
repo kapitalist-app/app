@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/models/wallet_response.dart';
+import 'package:kapitalist/models/api/wallet_response.dart';
 
 class WalletState {
   const WalletState({

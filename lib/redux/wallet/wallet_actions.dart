@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/models/wallet_creation_request.dart';
-import 'package:kapitalist/models/wallet_response.dart';
+import 'package:kapitalist/models/api/wallet_creation_request.dart';
+import 'package:kapitalist/models/api/wallet_response.dart';
 
 class CreateWalletAction {
   final WalletCreationRequest request;

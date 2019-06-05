@@ -2,9 +2,10 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
-import 'package:kapitalist/models/auth_token.dart';
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/models/wallet_creation_request.dart';
+import 'package:kapitalist/models/api/auth_token.dart';
+import 'package:kapitalist/models/api/wallet_creation_request.dart';
+import 'package:kapitalist/models/api/wallet_response.dart';
 
 part 'serializers.g.dart';
 
@@ -12,6 +13,7 @@ part 'serializers.g.dart';
   AuthToken,
   RegisterLoginData,
   WalletCreationRequest,
+  WalletResponse,
 ])
 
 // By default, `built_value` serialization uses lists and is not compatible
