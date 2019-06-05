@@ -16,8 +16,8 @@ class WalletMiddleware extends MiddlewareClass<AppState> {
       // XXX: Check if this is okay or if api might be "old state"
       final api = store.state.apiState.api;
       // XXX: api currently throws
-      final wallet = await api.createWallet(action.request);
-      next(WalletCreatedAction(wallet: wallet));
+      final resp = await api.createWallet(action.request);
+      next(WalletCreatedAction(response: resp));
     }
     next(action);
   }

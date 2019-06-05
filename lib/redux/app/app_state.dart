@@ -25,18 +25,4 @@ class AppState {
       walletState: WalletState.initial(),
     );
   }
-
-  AppState copyWith({
-    bool onboardingDone,
-    ApiState apiState,
-    AuthState authState,
-    WalletState walletState,
-  }) {
-    return AppState(
-      onboardingDone: onboardingDone ?? this.onboardingDone,
-      apiState: apiState ?? this.apiState,
-      authState: authState ?? this.authState,
-      walletState: walletState ?? this.walletState,
-    );
-  }
 }

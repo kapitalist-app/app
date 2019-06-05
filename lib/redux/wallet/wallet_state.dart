@@ -1,17 +1,17 @@
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/models/api/wallet_response.dart';
+import 'package:kapitalist/models/wallet.dart';
 
 class WalletState {
+  final List<Wallet> wallets;
+
   const WalletState({
     @required this.wallets,
   });
 
-  final List<WalletResponse> wallets;
-
   factory WalletState.initial() {
     return WalletState(
-      wallets: const <WalletResponse>[],
+      wallets: const <Wallet>[],
     );
   }
 }

@@ -10,7 +10,7 @@ class CreateWalletAction {
 }
 
 class WalletCreatedAction {
-  final WalletResponse wallet;
+  final WalletResponse response;
 
-  WalletCreatedAction({@required this.wallet});
+  WalletCreatedAction({@required this.response});
 }
