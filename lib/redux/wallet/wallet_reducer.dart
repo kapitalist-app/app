@@ -4,9 +4,9 @@ import 'package:kapitalist/redux/wallet/wallet_state.dart';
 
 WalletState walletReducer(WalletState state, dynamic action) {
   if (action is WalletCreatedAction) {
-    var wallets = state.wallets;
+    var wallets = List.of(state.wallets);
     wallets.add(Wallet.fromResponse(action.response));
-    return WalletState(wallets: wallets);
+    return WalletState(wallets: List.unmodifiable(wallets));
   }
   // TODO: implement fully
 

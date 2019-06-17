@@ -21,7 +21,7 @@ abstract class WalletResponse
   String get name;
   @BuiltValueField(wireName: 'wallet_type')
   String get walletType;
-  @BuiltValueField(wireName: 'balance')
+  @BuiltValueField(wireName: 'current_balance')
   int get balance;
   @BuiltValueField(wireName: 'color')
   String get color;
