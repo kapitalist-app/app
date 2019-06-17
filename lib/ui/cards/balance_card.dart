@@ -1,47 +1,43 @@
 import 'package:flutter/material.dart';
 
 import 'package:kapitalist/ui/cards/card_title.dart';
+import 'package:kapitalist/ui/cards/kapitalist_card.dart';
 
 class BalanceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Card(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 10.0,
-        ),
-        child: Column(
-          children: <Widget>[
-            CardTitle(
-              title: 'Balance',
-              onPressed: () {},
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2.0),
-              child: Text(
-                '3000,00€',
-                style: const TextStyle(
-                  fontSize: 24.0,
-                  color: Colors.green,
-                ),
-              ),
-            ),
-            Text(
-              '+1,5%',
+    return new KapitalistCard(
+      title: CardTitle(
+        title: 'Balance',
+        onPressed: () {},
+      ),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            child: Text(
+              '3000,00€',
               style: const TextStyle(
-                fontSize: 18.0,
+                fontSize: 24.0,
                 color: Colors.green,
               ),
             ),
-            Text(
-              'vs last month',
-              style: const TextStyle(
-                fontSize: 10.0,
-                color: Colors.blueGrey,
-              ),
+          ),
+          Text(
+            '+1,5%',
+            style: const TextStyle(
+              fontSize: 18.0,
+              color: Colors.green,
             ),
-          ],
-        ),
+          ),
+          Text(
+            'vs last month',
+            style: const TextStyle(
+              fontSize: 10.0,
+              color: Colors.blueGrey,
+            ),
+          ),
+        ],
       ),
     );
   }

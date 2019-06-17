@@ -20,7 +20,7 @@ class _TransactionPageState extends State<TransactionPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
-            child: Util.buildTextFormField(null, 'Name', (_) => null),
+            child: UiUtil.buildTextFormField(null, 'Name', (_) => null),
           ),
         ],
       ),

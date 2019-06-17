@@ -111,7 +111,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _buildTitle('Welcome to the Kapitalist App!'),
         _buildDescription(
             'We will now set you up to start tracking your finances.'),
-        Util.emptyExpanded(),
+        UiUtil.emptyExpanded(),
         _buildButton(() async {
           return true;
         }, false),
@@ -125,13 +125,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _buildLogoHeader(),
         _buildTitle('Kapitalist Url'),
         _buildDescription('Where can we reach your Kapitalist instance?'),
-        _padTextField(Util.buildTextFormField(
+        _padTextField(UiUtil.buildTextFormField(
           _keyUrl,
           'Kapitalist URL',
           widget.urlValidator ?? _validateUrl,
           icon: Icons.cloud_queue,
         )),
-        Util.emptyExpanded(),
+        UiUtil.emptyExpanded(),
         _buildButton(_clickUrlButton, false),
       ],
     );
@@ -154,21 +154,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _buildLogoHeader(),
         _buildTitle(title),
         _buildDescription(description),
-        _padTextField(Util.buildTextFormField(
+        _padTextField(UiUtil.buildTextFormField(
           _keyEmail,
           'Email',
           widget.emailValidator ?? _validateEmail,
           icon: Icons.email,
           inputType: TextInputType.emailAddress,
         )),
-        _padTextField(Util.buildTextFormField(
+        _padTextField(UiUtil.buildTextFormField(
           _keyPassword,
           'Password',
           widget.passwordValidator ?? _validatePassword,
           icon: Icons.vpn_key,
           obscure: true,
         )),
-        Util.emptyExpanded(),
+        UiUtil.emptyExpanded(),
         _buildButton(_clickSignupLoginButton, true, text: buttonText),
       ],
     );
@@ -181,7 +181,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _buildTitle('You are all set!'),
         _buildDescription(
             'Click finish to start tracking your finances'),
-        Util.emptyExpanded(),
+        UiUtil.emptyExpanded(),
         _buildButton(() async {
           return true;
         }, true),

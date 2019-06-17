@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Util {
+class UiUtil {
   static Widget buildTextFormField(Key key, String labelText, FormFieldValidator<String> validator,
       {IconData icon, TextInputType inputType, bool obscure}) {
     return TextFormField(
@@ -26,4 +26,6 @@ class Util {
 
     Scaffold.of(ctx).showSnackBar(sb);
   }
+
+  static Decoration simpleBorder({width: 1.0}) => BoxDecoration(border: Border.all(width: width));
 }

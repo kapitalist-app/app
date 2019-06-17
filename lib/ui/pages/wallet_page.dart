@@ -71,7 +71,7 @@ class _WalletPageState extends State<WalletPage> {
           padding: const EdgeInsets.all(45.0),
           children: <Widget>[
             const SizedBox(height: 40.0),
-            Util.buildTextFormField(
+            UiUtil.buildTextFormField(
               _keyName,
               'Wallet name',
               _validateName,
@@ -90,7 +90,7 @@ class _WalletPageState extends State<WalletPage> {
                 onChanged: (val) => setState(() => _walletType = val),
                 validator: _validateType),
             const SizedBox(height: 15.0),
-            Util.buildTextFormField(
+            UiUtil.buildTextFormField(
               _keyBalance,
               'Balance',
               _validateBalance,
@@ -98,7 +98,7 @@ class _WalletPageState extends State<WalletPage> {
               inputType: TextInputType.number,
             ),
             const SizedBox(height: 15.0),
-            Util.buildTextFormField(
+            UiUtil.buildTextFormField(
               _keyColor,
               'Color',
               _validateColor,
