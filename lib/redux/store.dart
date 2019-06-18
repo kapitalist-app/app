@@ -2,12 +2,13 @@ import 'package:http/http.dart';
 import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
 
-import 'package:kapitalist/redux/app/app_reducer.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
-import 'package:kapitalist/redux/api/api_middleware.dart';
-import 'package:kapitalist/redux/auth/auth_middleware.dart';
-import 'package:kapitalist/redux/common/common_middleware.dart';
-import 'package:kapitalist/redux/wallet/wallet_middleware.dart';
+import 'package:kapitalist/redux/reducer.dart';
+import 'package:kapitalist/redux/state.dart';
+import 'package:kapitalist/redux/api/middleware.dart';
+import 'package:kapitalist/redux/auth/middleware.dart';
+import 'package:kapitalist/redux/common/middleware.dart';
+import 'package:kapitalist/redux/transaction/middleware.dart';
+import 'package:kapitalist/redux/wallet/middleware.dart';
 
 Store<AppState> createStore(Client client, KeyValueStore kv) {
   return Store(
@@ -16,8 +17,9 @@ Store<AppState> createStore(Client client, KeyValueStore kv) {
     distinct: true,
     middleware: [
       ApiMiddleware(kv),
-      CommonMiddleware(kv),
       AuthMiddleware(client, kv),
+      CommonMiddleware(kv),
+      TransactionMiddleware(client),
       WalletMiddleware(client),
     ]
   );

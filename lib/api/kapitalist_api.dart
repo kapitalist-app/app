@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:kapitalist/models/api/transaction_creation_request.dart';
+import 'package:kapitalist/models/api/transaction_response.dart';
 
 import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/models/api/auth_token.dart';
@@ -59,13 +61,20 @@ class KapitalistApi {
     return wallet;
   }
 
-  Future<List<WalletResponse>> listWallets() async {
+  Future<List<WalletResponse>> getWallets() async {
     final resp = await _get('/wallets');
     final list = json.decode(resp);
     final wallets = list.map<WalletResponse>((raw) {
       return WalletResponse.fromMap(raw);
     }).toList();
     return wallets;
+  }
+
+  Future<TransactionResponse> createTransaction(TransactionCreationRequest req) async {
+    final resp = await _post('/transaction', req.toJson());
+    final transaction = TransactionResponse.fromJson(resp);
+    print("Result of createTransaction: $transaction");
+    return transaction;
   }
 
   Future<AuthToken> _refreshToken() async {

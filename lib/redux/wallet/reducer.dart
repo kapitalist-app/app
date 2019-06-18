@@ -1,6 +1,6 @@
 import 'package:kapitalist/models/wallet.dart';
-import 'package:kapitalist/redux/wallet/wallet_actions.dart';
-import 'package:kapitalist/redux/wallet/wallet_state.dart';
+import 'package:kapitalist/redux/wallet/actions.dart';
+import 'package:kapitalist/redux/wallet/state.dart';
 
 WalletState walletReducer(WalletState state, dynamic action) {
   if (action is WalletsFetchedAction) {

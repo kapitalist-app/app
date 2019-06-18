@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/models/wallet.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
+import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/ui/cards/card_title.dart';
 import 'package:kapitalist/ui/cards/kapitalist_card.dart';
 import 'package:kapitalist/ui/util.dart';
@@ -15,7 +15,7 @@ class WalletsCard extends StatelessWidget {
       title: CardTitle(title: 'Wallets'),
       child: StoreConnector<AppState, List<Wallet>>(
           converter: (store) => store.state.walletState.wallets,
-          builder: (ctx, wallets) {
+          builder: (_, wallets) {
             return Wrap(
               spacing: 5.0,
               runSpacing: 5.0,

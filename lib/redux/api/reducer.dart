@@ -1,6 +1,6 @@
 import 'package:kapitalist/api/kapitalist_api.dart';
-import 'package:kapitalist/redux/api/api_state.dart';
-import 'package:kapitalist/redux/common/common_actions.dart';
+import 'package:kapitalist/redux/api/state.dart';
+import 'package:kapitalist/redux/common/actions.dart';
 
 ApiState apiReducer(ApiState state, dynamic action) {
   if (action is SetBaseUrlAction) {

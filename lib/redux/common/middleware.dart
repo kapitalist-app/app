@@ -2,8 +2,8 @@ import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
 
 import 'package:kapitalist/keys.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
-import 'package:kapitalist/redux/common/common_actions.dart';
+import 'package:kapitalist/redux/state.dart';
+import 'package:kapitalist/redux/common/actions.dart';
 
 class CommonMiddleware extends MiddlewareClass<AppState> {
   final KeyValueStore kvStore;

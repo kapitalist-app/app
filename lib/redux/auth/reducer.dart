@@ -1,5 +1,5 @@
-import 'package:kapitalist/redux/auth/auth_actions.dart';
-import 'package:kapitalist/redux/auth/auth_state.dart';
+import 'package:kapitalist/redux/auth/actions.dart';
+import 'package:kapitalist/redux/auth/state.dart';
 
 AuthState authReducer(AuthState state, dynamic action) {
   if (action is AuthSuccessfulAction) {

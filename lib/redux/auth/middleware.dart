@@ -4,9 +4,9 @@ import 'package:redux/redux.dart';
 
 import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
-import 'package:kapitalist/redux/auth/auth_actions.dart';
-import 'package:kapitalist/redux/common/common_actions.dart';
+import 'package:kapitalist/redux/state.dart';
+import 'package:kapitalist/redux/auth/actions.dart';
+import 'package:kapitalist/redux/common/actions.dart';
 
 class AuthMiddleware extends MiddlewareClass<AppState> {
   final Client client;

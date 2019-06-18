@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart';
-import 'package:kapitalist/redux/common/common_actions.dart';
+import 'package:kapitalist/redux/common/actions.dart';
 import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:kapitalist/routes.dart';
 import 'package:kapitalist/redux/store.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
+import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/ui/main_page.dart';
 import 'package:kapitalist/ui/pages/onboarding_page.dart';
 import 'package:kapitalist/ui/pages/transaction_page.dart';

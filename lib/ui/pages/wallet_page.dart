@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/models/api/wallet_creation_request.dart';
-import 'package:kapitalist/redux/app/app_state.dart';
-import 'package:kapitalist/redux/wallet/wallet_actions.dart';
+import 'package:kapitalist/redux/state.dart';
+import 'package:kapitalist/redux/wallet/actions.dart';
 import 'package:kapitalist/ui/util.dart';
 
 class WalletPage extends StatefulWidget {
@@ -26,6 +26,7 @@ class _WalletPageState extends State<WalletPage> {
 
   String _walletType;
 
+  // XXX: Extract this
   // Validators
   String _validateName(String name) =>
       name.isEmpty ? 'Wallet name cannot be empty' : null;
@@ -62,7 +63,7 @@ class _WalletPageState extends State<WalletPage> {
   Widget build(BuildContext ctx) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text('Add new Wallet'),
+        title: Text('Add/Edit Wallet'),
       ),
       body: Form(
         key: _keyForm,
@@ -95,7 +96,7 @@ class _WalletPageState extends State<WalletPage> {
               'Balance',
               _validateBalance,
               icon: Icons.account_balance,
-              inputType: TextInputType.number,
+              inputType: TextInputType.numberWithOptions(signed: true, decimal: false),
             ),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(
