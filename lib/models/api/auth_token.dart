@@ -15,6 +15,7 @@ abstract class AuthToken implements Built<AuthToken, AuthTokenBuilder> {
 
   @BuiltValueField(wireName: 'token')
   String get token;
+
   String toJson() {
     return json.encode(serializers.serializeWith(AuthToken.serializer, this));
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
@@ -7,6 +8,7 @@ import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/models/api/auth_token.dart';
 import 'package:kapitalist/models/api/wallet_creation_request.dart';
 import 'package:kapitalist/models/api/wallet_response.dart';
+import 'package:kapitalist/models/serializers.dart';
 
 class KapitalistApi {
   // Base Uri
@@ -57,6 +59,15 @@ class KapitalistApi {
     return wallet;
   }
 
+  Future<List<WalletResponse>> listWallets() async {
+    final resp = await _get('/wallets');
+    final list = json.decode(resp);
+    final wallets = list.map<WalletResponse>((raw) {
+      return WalletResponse.fromMap(raw);
+    }).toList();
+    return wallets;
+  }
+
   Future<AuthToken> _refreshToken() async {
     final req = RegisterLoginData((b) => b
           ..email = _email
@@ -77,7 +88,11 @@ class KapitalistApi {
   Map<String, String> _getHeaders(bool withToken) {
     var map = {HttpHeaders.contentTypeHeader: 'application/json'};
     if (withToken) {
-      map.addAll({HttpHeaders.authorizationHeader: 'Bearer ${_token.token}'});
+      if (_token != null) {
+        map.addAll({HttpHeaders.authorizationHeader: 'Bearer ${_token.token}'});
+      } else {
+        print('[ERR] withToken was specified but _token is null');
+      }
     }
     return map;
   }

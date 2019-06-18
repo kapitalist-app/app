@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:kapitalist/models/api/wallet_response.dart';
 
 class Wallet {
-
   // From WalletResponse
   final int id;
   final String name;
@@ -26,12 +25,12 @@ class Wallet {
   });
 
   factory Wallet.fromResponse(WalletResponse resp) => Wallet(
-    id: resp.id,
-    name: resp.name,
-    walletType: resp.walletType,
-    balance: resp.balance,
-    color: resp.color,
-    createdAt: resp.createdAt,
-    selected: true,
-  );
+        id: resp.id,
+        name: resp.name,
+        walletType: resp.walletType,
+        balance: resp.balance,
+        color: resp.color,
+        createdAt: resp.createdAt,
+        selected: true,
+      );
 }

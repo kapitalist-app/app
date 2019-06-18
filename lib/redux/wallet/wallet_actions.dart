@@ -14,3 +14,9 @@ class WalletCreatedAction {
 
   WalletCreatedAction({@required this.response});
 }
+
+class WalletsFetchedAction {
+  final List<WalletResponse> response;
+
+  WalletsFetchedAction({@required this.response});
+}

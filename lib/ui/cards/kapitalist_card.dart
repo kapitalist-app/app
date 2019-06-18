@@ -8,7 +8,7 @@ class KapitalistCard extends StatelessWidget {
   final Widget child;
 
   KapitalistCard({
-    this.title,
+    @required this.title,
     this.child,
   });
 

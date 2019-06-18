@@ -17,12 +17,16 @@ abstract class WalletCreationRequest
 
   @BuiltValueField(wireName: 'name')
   String get name;
+
   @BuiltValueField(wireName: 'wallet_type')
   String get walletType;
+
   @BuiltValueField(wireName: 'balance')
   int get balance;
+
   @BuiltValueField(wireName: 'color')
   String get color;
+
   String toJson() {
     return json.encode(
         serializers.serializeWith(WalletCreationRequest.serializer, this));

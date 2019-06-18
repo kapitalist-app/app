@@ -12,30 +12,38 @@ abstract class WalletResponse
     implements Built<WalletResponse, WalletResponseBuilder> {
   WalletResponse._();
 
-  factory WalletResponse([updates(WalletResponseBuilder b)]) =
-      _$WalletResponse;
+  factory WalletResponse([updates(WalletResponseBuilder b)]) = _$WalletResponse;
 
   @BuiltValueField(wireName: 'id')
   int get id;
+
   @BuiltValueField(wireName: 'name')
   String get name;
+
   @BuiltValueField(wireName: 'wallet_type')
   String get walletType;
+
   @BuiltValueField(wireName: 'current_balance')
   int get balance;
+
   @BuiltValueField(wireName: 'color')
   String get color;
+
   @BuiltValueField(wireName: 'created_at')
   String get createdAt;
 
   String toJson() {
-    return json.encode(
-        serializers.serializeWith(WalletResponse.serializer, this));
+    return json
+        .encode(serializers.serializeWith(WalletResponse.serializer, this));
   }
 
   static WalletResponse fromJson(String jsonString) {
     return serializers.deserializeWith(
         WalletResponse.serializer, json.decode(jsonString));
+  }
+
+  static WalletResponse fromMap(Map map) {
+    return serializers.deserializeWith(WalletResponse.serializer, map);
   }
 
   static Serializer<WalletResponse> get serializer =>

@@ -17,6 +17,7 @@ abstract class RegisterLoginData
 
   @BuiltValueField(wireName: 'email')
   String get email;
+
   @BuiltValueField(wireName: 'password')
   String get password;
 
