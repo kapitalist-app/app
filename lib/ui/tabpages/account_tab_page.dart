@@ -10,7 +10,7 @@ class AccountTabPage extends StatelessWidget {
         WalletsCard(),
         BalanceCard(),
         //BalanceChartCard(),
-        LastRecordsCard(),
+        LastTransactionsCard(),
         Column(
           children: <Widget>[
             IconButton(

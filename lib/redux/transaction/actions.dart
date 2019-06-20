@@ -15,8 +15,10 @@ class TransactionCreatedAction {
   TransactionCreatedAction({@required this.response});
 }
 
-/*class TransactionsUpdatedAction {
+class RefreshTransactionsAction {}
+
+class TransactionsUpdatedAction {
   final List<TransactionResponse> response;
 
   TransactionsUpdatedAction({@required this.response});
-}*/
+}

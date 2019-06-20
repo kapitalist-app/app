@@ -77,6 +77,16 @@ class KapitalistApi {
     return transaction;
   }
 
+  Future<List<TransactionResponse>> getTransactions(int walletId) async {
+    final resp = await _get('/transactions/$walletId');
+    print(resp);
+    final list = json.decode(resp);
+    final tx = list?.map<TransactionResponse>((raw) {
+      return TransactionResponse.fromMap(raw);
+    })?.toList() ?? <TransactionResponse>[];
+    return tx;
+  }
+
   Future<AuthToken> _refreshToken() async {
     final req = RegisterLoginData((b) => b
           ..email = _email

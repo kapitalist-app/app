@@ -40,6 +40,10 @@ abstract class TransactionResponse
         TransactionResponse.serializer, json.decode(jsonString));
   }
 
+  static TransactionResponse fromMap(Map map) {
+    return serializers.deserializeWith(TransactionResponse.serializer, map);
+  }
+
   static Serializer<TransactionResponse> get serializer =>
       _$transactionResponseSerializer;
 }

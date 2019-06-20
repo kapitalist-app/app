@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/redux/state.dart';
+import 'package:kapitalist/redux/transaction/actions.dart';
 import 'package:kapitalist/routes.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -62,6 +63,12 @@ class DrawerPage extends StatelessWidget {
           child: Text('Create transaction'),
           onPressed: () {
             Navigator.of(ctx).pushNamed(KapitalistRoutes.NEW_TRANSACTION);
+          },
+        ),
+        MaterialButton(
+          child: Text('Refresh'),
+          onPressed: () {
+            StoreProvider.of<AppState>(ctx).dispatch(RefreshTransactionsAction());
           },
         ),
       ],

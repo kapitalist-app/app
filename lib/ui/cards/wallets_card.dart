@@ -14,22 +14,23 @@ class WalletsCard extends StatelessWidget {
     return new KapitalistCard(
       title: CardTitle(title: 'Wallets'),
       child: StoreConnector<AppState, List<Wallet>>(
-          converter: (store) => store.state.walletState.wallets,
-          builder: (_, wallets) {
-            return Wrap(
-              spacing: 5.0,
-              runSpacing: 5.0,
-              children: [
-                for (var w in wallets) _buildWalletElement(w),
-                Container(
-                  height: 35,
-                  width: 100,
-                  decoration: UiUtil.simpleBorder(width: 1.5),
-                  child: Center(child: Text('Add wallet')),
-                ),
-              ],
-            );
-          }),
+        converter: (store) => store.state.walletState.wallets,
+        builder: (_, wallets) {
+          return Wrap(
+            spacing: 5.0,
+            runSpacing: 5.0,
+            children: [
+              for (var w in wallets) _buildWalletElement(w),
+              Container(
+                height: 35,
+                width: 100,
+                decoration: UiUtil.simpleBorder(width: 1.5),
+                child: Center(child: Text('Add wallet')),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
