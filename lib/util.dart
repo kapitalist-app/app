@@ -10,4 +10,7 @@ class Util {
     final b = str.substring(4, 6);
     return Color.fromRGBO(int.parse(r, radix: 16), int.parse(g, radix: 16), int.parse(b, radix: 16), 1);
   }
+
+  static String pad2Zeroes(int number)
+    => number.toString().padLeft(2, '0');
 }

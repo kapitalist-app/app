@@ -24,6 +24,9 @@ abstract class TransactionResponse
   @BuiltValueField(wireName: 'category_id')
   int get categoryId;
 
+  @BuiltValueField(wireName: 'name')
+  String get name;
+
   @BuiltValueField(wireName: 'amount')
   int get amount;
 

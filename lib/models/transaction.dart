@@ -7,6 +7,7 @@ class Transaction {
   final int id;
   final int walletId;
   final int categoryId;
+  final String name;
   final int amount;
   final DateTime timestamp;
 
@@ -16,6 +17,7 @@ class Transaction {
     @required this.id,
     @required this.walletId,
     @required this.categoryId,
+    @required this.name,
     @required this.amount,
     @required this.timestamp,
   });
@@ -24,6 +26,7 @@ class Transaction {
     id: resp.id,
     walletId: resp.walletId,
     categoryId: resp.categoryId,
+    name: resp.name,
     amount: resp.amount,
     timestamp: resp.timestamp,
   );

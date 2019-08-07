@@ -19,6 +19,7 @@ class _TransactionPageState extends State<TransactionPage> {
   final _keyForm = new GlobalKey<FormState>();
   final _keyWallet = new GlobalKey<FormFieldState<Wallet>>();
   final _keyCategory = new GlobalKey<FormFieldState<int>>();
+  final _keyName = new GlobalKey<FormFieldState<String>>();
   final _keyAmount = new GlobalKey<FormFieldState<String>>();
   final _keyTimestamp = new GlobalKey<FormFieldState<String>>();
 
@@ -36,12 +37,14 @@ class _TransactionPageState extends State<TransactionPage> {
     if (form.validate()) {
       final wallet = _keyWallet.currentState.value;
       final category = _keyCategory.currentState.value;
+      final name = _keyName.currentState.value;
       final amount = int.parse(_keyAmount.currentState.value);
-      final timestamp = DateTime.tryParse(_keyTimestamp.currentState?.value);
+      final timestamp = DateTime.tryParse(_keyTimestamp.currentState?.value)?.toUtc();
 
       final req = TransactionCreationRequest((b) => b
         ..walletId = wallet.id
         ..categoryId = category
+        ..name = name
         ..amount = amount
         ..timestamp = timestamp);
       final store = StoreProvider.of<AppState>(context);
@@ -64,6 +67,13 @@ class _TransactionPageState extends State<TransactionPage> {
           padding: const EdgeInsets.all(45.0),
           children: <Widget>[
             const SizedBox(height: 40.0),
+            UiUtil.buildTextFormField(
+              _keyName,
+              'Name',
+              (val) => val == null ? 'Name cannot be empty' : null,
+              icon: Icons.assignment,
+              inputType: TextInputType.text,
+            ),
             StoreConnector<AppState, List<Wallet>>(
               converter: (store) => store.state.walletState.wallets,
               builder: (_, wallets) {
@@ -77,26 +87,28 @@ class _TransactionPageState extends State<TransactionPage> {
                       prefixIcon: const Icon(Icons.account_balance_wallet),
                     ),
                     onChanged: (val) => setState(() => _wallet = val),
-                    validator: (val) => val == null ? 'Wallet cannot be empty' : null);
+                    validator: (val) =>
+                        val == null ? 'Wallet cannot be empty' : null);
               },
             ),
             DropdownButtonFormField(
-              key: _keyCategory,
-              value: _category,
-              items: [
-                for (var i = 1; i <= 5; i++)
-                  DropdownMenuItem(value: i, child: Text('Category $i'))
-              ],
-              onChanged: (val) => setState(() => _category = val),
-              validator: (val) => val == null ? 'Category cannot be empty' : null
-            ),
+                key: _keyCategory,
+                value: _category,
+                items: [
+                  for (var i = 1; i <= 5; i++)
+                    DropdownMenuItem(value: i, child: Text('Category $i'))
+                ],
+                onChanged: (val) => setState(() => _category = val),
+                validator: (val) =>
+                    val == null ? 'Category cannot be empty' : null),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(
               _keyAmount,
               'Amount',
               _validateAmount,
               icon: Icons.account_balance,
-              inputType: TextInputType.numberWithOptions(signed: true, decimal: false),
+              inputType:
+                  TextInputType.numberWithOptions(signed: true, decimal: false),
             ),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(

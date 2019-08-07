@@ -116,21 +116,28 @@ class KapitalistApi {
     return map;
   }
 
+  void _printResponse(http.Response resp) {
+    var req = resp.request as http.Request;
+    print("${req.method} ${req.url}");
+    print("H: ${req.headers ?? '--'}");
+    print("P: ${req.body ?? '--'}");
+    print("=> ${resp.statusCode} - ${resp.body ?? '--'}");
+  }
+
   Future<String> _get(String path, {bool retry = false}) async {
     return http
         .get(_baseUri.replace(path: path), headers: _getHeaders(true))
         .then((resp) {
-      print('get: ${resp.request}');
-      print('get headers: ${resp.request.headers}');
+      _printResponse(resp);
       final String body = resp.body;
       final int code = resp.statusCode;
 
       if (code == HttpStatus.unauthorized && !retry) {
         // Refresh token and retry once
         return _refreshToken().then((_) => _get(path, retry: true));
-      } else if (code > 400) {
-        throw Exception(
-            "Error while GETing ${_baseUri.replace(path: path)}");
+      } else if (code >= 400) {
+        print("Error while GETing ${_baseUri.replace(path: path)}: ${code} - ${body}");
+        return null;
       }
 
       return body;
@@ -142,17 +149,16 @@ class KapitalistApi {
         .post(_baseUri.replace(path: path),
             body: payload, headers: _getHeaders(true))
         .then((resp) {
-      print('post: ${resp.request}');
-      print('post headers: ${resp.request.headers}');
+      _printResponse(resp);
       final String body = resp.body;
       final int code = resp.statusCode;
 
       if (code == HttpStatus.unauthorized && !retry) {
         // Refresh token and retry once
         return _refreshToken().then((_) => _post(path, payload, retry: true));
-      } else if (code > 400) {
-        throw Exception(
-            "Error while POSTing ${_baseUri.replace(path: path)}");
+      } else if (code >= 400) {
+        print("Error while POSTing ${_baseUri.replace(path: path)}: ${code} - ${body}");
+        return null;
       }
 
       return body;

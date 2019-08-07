@@ -22,7 +22,7 @@ class TransactionMiddleware extends MiddlewareClass<AppState> {
       for (var wallet in store.state.walletState.wallets) {
         resps.addAll(await api.getTransactions(wallet.id));
       }
-      store.dispatch(TransactionsUpdatedAction(response: resps));
+      store.dispatch(TransactionsFetchedAction(response: resps));
     }
     else if (action is CreateTransactionAction) {
       // XXX: Check if this is okay or if api might be "old state"

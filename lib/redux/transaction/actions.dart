@@ -17,8 +17,8 @@ class TransactionCreatedAction {
 
 class RefreshTransactionsAction {}
 
-class TransactionsUpdatedAction {
+class TransactionsFetchedAction {
   final List<TransactionResponse> response;
 
-  TransactionsUpdatedAction({@required this.response});
+  TransactionsFetchedAction({@required this.response});
 }
