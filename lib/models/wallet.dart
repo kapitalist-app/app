@@ -9,7 +9,7 @@ class Wallet {
   final String walletType;
   final int balance;
   final String color;
-  final String createdAt;
+  final DateTime createdAt;
 
   // App related XXX: Check if this is how we want to store this state
   final bool selected;

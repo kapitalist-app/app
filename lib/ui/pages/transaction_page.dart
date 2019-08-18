@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/models/api/transaction_creation_request.dart';
+import 'package:kapitalist/models/category.dart';
 import 'package:kapitalist/models/wallet.dart';
 import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/transaction/actions.dart';
@@ -18,13 +19,13 @@ class _TransactionPageState extends State<TransactionPage> {
   // Keys
   final _keyForm = new GlobalKey<FormState>();
   final _keyWallet = new GlobalKey<FormFieldState<Wallet>>();
-  final _keyCategory = new GlobalKey<FormFieldState<int>>();
+  final _keyCategory = new GlobalKey<FormFieldState<Category>>();
   final _keyName = new GlobalKey<FormFieldState<String>>();
   final _keyAmount = new GlobalKey<FormFieldState<String>>();
   final _keyTimestamp = new GlobalKey<FormFieldState<String>>();
 
   Wallet _wallet;
-  int _category;
+  Category _category;
 
   // XXX: Extract this
   // Validators
@@ -43,7 +44,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
       final req = TransactionCreationRequest((b) => b
         ..walletId = wallet.id
-        ..categoryId = category
+        ..categoryId = category.id
         ..name = name
         ..amount = amount
         ..timestamp = timestamp);
@@ -91,16 +92,23 @@ class _TransactionPageState extends State<TransactionPage> {
                         val == null ? 'Wallet cannot be empty' : null);
               },
             ),
-            DropdownButtonFormField(
-                key: _keyCategory,
-                value: _category,
-                items: [
-                  for (var i = 1; i <= 5; i++)
-                    DropdownMenuItem(value: i, child: Text('Category $i'))
-                ],
-                onChanged: (val) => setState(() => _category = val),
-                validator: (val) =>
-                    val == null ? 'Category cannot be empty' : null),
+            StoreConnector<AppState, List<Category>>(
+              converter: (store) => store.state.categoryState.categories,
+              builder: (_, categories) {
+                return DropdownButtonFormField(
+                    key: _keyCategory,
+                    value: _category,
+                    items: categories.map<DropdownMenuItem<Category>>((c) {
+                      return DropdownMenuItem(value: c, child: Text(c.name));
+                    }).toList(),
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.adjust),
+                    ),
+                    onChanged: (val) => setState(() => _category = val),
+                    validator: (val) =>
+                    val == null ? 'Category cannot be empty' : null);
+              },
+            ),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(
               _keyAmount,

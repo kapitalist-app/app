@@ -3,13 +3,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:kapitalist/models/api/transaction_creation_request.dart';
-import 'package:kapitalist/models/api/transaction_response.dart';
 
+import 'package:kapitalist/models/api/api.dart';
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/models/api/auth_token.dart';
-import 'package:kapitalist/models/api/wallet_creation_request.dart';
-import 'package:kapitalist/models/api/wallet_response.dart';
 import 'package:kapitalist/models/serializers.dart';
 
 class KapitalistApi {
@@ -62,7 +58,7 @@ class KapitalistApi {
   }
 
   Future<List<WalletResponse>> getWallets() async {
-    final resp = await _get('/wallets');
+    final resp = await _get('/wallet/all');
     final list = json.decode(resp);
     final wallets = list.map<WalletResponse>((raw) {
       return WalletResponse.fromMap(raw);
@@ -73,18 +69,26 @@ class KapitalistApi {
   Future<TransactionResponse> createTransaction(TransactionCreationRequest req) async {
     final resp = await _post('/transaction', req.toJson());
     final transaction = TransactionResponse.fromJson(resp);
-    print("Result of createTransaction: $transaction");
     return transaction;
   }
 
   Future<List<TransactionResponse>> getTransactions(int walletId) async {
-    final resp = await _get('/transactions/$walletId');
-    print(resp);
+    final resp = await _get('/transaction/all/$walletId');
     final list = json.decode(resp);
-    final tx = list?.map<TransactionResponse>((raw) {
-      return TransactionResponse.fromMap(raw);
-    })?.toList() ?? <TransactionResponse>[];
+    final tx = list
+        ?.map<TransactionResponse>((raw) => TransactionResponse.fromMap(raw))
+        ?.toList() ?? <TransactionResponse>[];
     return tx;
+  }
+
+  Future<List<CategoryResponse>> getCategories() async {
+    final resp = await _get('/category/all');
+    final list = json.decode(resp);
+    print(list);
+    final categories = list
+        ?.map<CategoryResponse>((raw) => CategoryResponse.fromMap(raw))
+        ?.toList() ?? <CategoryResponse>[];
+    return categories;
   }
 
   Future<AuthToken> _refreshToken() async {

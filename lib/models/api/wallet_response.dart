@@ -30,7 +30,7 @@ abstract class WalletResponse
   String get color;
 
   @BuiltValueField(wireName: 'created_at')
-  String get createdAt;
+  DateTime get createdAt;
 
   String toJson() {
     return json
