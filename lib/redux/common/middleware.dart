@@ -1,4 +1,4 @@
-import 'package:key_value_store/key_value_store.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:redux/redux.dart';
 
 import 'package:kapitalist/keys.dart';
@@ -6,9 +6,9 @@ import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/common/actions.dart';
 
 class CommonMiddleware extends MiddlewareClass<AppState> {
-  final KeyValueStore kvStore;
+  final SharedPreferences prefs;
 
-  CommonMiddleware(this.kvStore);
+  CommonMiddleware(this.prefs);
 
   @override
   Future<Null> call(Store<AppState> store, action, NextDispatcher next) async {
@@ -21,7 +21,7 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _loadOnboardingDone(Store<AppState> store) async {
-    final done = kvStore.getBool(KapitalistKeys.ONBOARDING_DONE);
+    final done = prefs.getBool(KapitalistKeys.ONBOARDING_DONE);
     print("Loaded onboardingDone: $done");
 
     if (done != null && done) {
@@ -30,7 +30,7 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _saveOnboardingDone() async {
-    await kvStore.setBool(KapitalistKeys.ONBOARDING_DONE, true);
+    await prefs.setBool(KapitalistKeys.ONBOARDING_DONE, true);
     print("Saved onboardingDone: true");
   }
 }

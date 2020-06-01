@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart';
 import 'package:kapitalist/redux/common/actions.dart';
-import 'package:key_value_store_flutter/key_value_store_flutter.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,8 +15,7 @@ import 'package:kapitalist/ui/pages/wallet_page.dart';
 
 Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
-  final kvStore = FlutterKeyValueStore(prefs);
-  var store = createStore(Client(), kvStore);
+  var store = createStore(Client(), prefs);
 
   store.dispatch(InitAction());
 

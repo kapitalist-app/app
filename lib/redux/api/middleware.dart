@@ -1,14 +1,14 @@
-import 'package:key_value_store/key_value_store.dart';
 import 'package:redux/redux.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/common/actions.dart';
 
 class ApiMiddleware extends MiddlewareClass<AppState> {
-  final KeyValueStore kvStore;
+  final SharedPreferences prefs;
 
-  ApiMiddleware(this.kvStore);
+  ApiMiddleware(this.prefs);
 
   @override
   Future<Null> call(Store<AppState> store, action, NextDispatcher next) async {
@@ -21,7 +21,7 @@ class ApiMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _loadBaseUrl(Store<AppState> store) async {
-    final baseUrl = kvStore.getString(KapitalistKeys.BASE_URL);
+    final baseUrl = prefs.getString(KapitalistKeys.BASE_URL);
 
     if (baseUrl != null) {
       final uri = Uri.tryParse(baseUrl);
@@ -33,7 +33,7 @@ class ApiMiddleware extends MiddlewareClass<AppState> {
   }
 
   Future<Null> _saveBaseUrl(Uri url) async {
-    await kvStore.setString(KapitalistKeys.BASE_URL, url.toString());
+    await prefs.setString(KapitalistKeys.BASE_URL, url.toString());
     print("Saved baseUrl: baseUrl=$url");
   }
 }
