@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/models/api/wallet_creation_request.dart';
+import 'package:business/business.dart';
+
 import 'package:kapitalist/ui/util.dart';
 
 typedef WalletCreationCallback = void Function(WalletCreationRequest);
 
 class WalletPage extends StatefulWidget {
-  WalletCreationCallback onSubmit;
+  final WalletCreationCallback onSubmit;
 
   WalletPage({
     Key key,

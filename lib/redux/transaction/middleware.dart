@@ -1,10 +1,3 @@
-import 'package:http/http.dart';
-import 'package:kapitalist/models/api/transaction_response.dart';
-
-import 'package:kapitalist/redux/state.dart';
-import 'package:kapitalist/redux/wallet/actions.dart';
-import 'package:kapitalist/redux/transaction/actions.dart';
-
 /*class TransactionMiddleware extends MiddlewareClass<AppState> {
 
   final Client client;

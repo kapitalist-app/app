@@ -7,6 +7,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.0
 
+  business:
+    path: business/
+
+  client:
+    path: client/
+
   # Charting
   charts_flutter: ^0.9.0
 
@@ -18,7 +24,7 @@ dependencies:
   # Redux helpers
   async_redux: ^2.9.0
 
-  # Built_value
+  # Built Value + Collection
   built_value: ^7.1.0
   built_collection: ^4.3.0
 

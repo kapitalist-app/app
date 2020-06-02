@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
+import 'package:business/business.dart';
+
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/redux/auth/actions.dart';
 import 'package:kapitalist/ui/logo.dart';
 import 'package:kapitalist/ui/util.dart';
 

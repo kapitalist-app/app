@@ -1,9 +1,3 @@
-import 'package:http/http.dart';
-
-import 'package:kapitalist/redux/state.dart';
-import 'package:kapitalist/redux/auth/actions.dart';
-import 'package:kapitalist/redux/wallet/actions.dart';
-
 /*class WalletMiddleware extends MiddlewareClass<AppState> {
 
   final Client client;

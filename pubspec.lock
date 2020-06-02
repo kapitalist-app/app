@@ -106,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "7.1.0"
+  business:
+    dependency: "direct main"
+    description:
+      path: business
+      relative: true
+    source: path
+    version: "0.0.0"
   charcode:
     dependency: transitive
     description:
@@ -134,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
+  client:
+    dependency: "direct main"
+    description:
+      path: client
+      relative: true
+    source: path
+    version: "0.0.0"
   clock:
     dependency: transitive
     description:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/models/wallet.dart';
+import 'package:business/business.dart';
+
 import 'package:kapitalist/ui/cards/card_title.dart';
 import 'package:kapitalist/ui/cards/kapitalist_card.dart';
 import 'package:kapitalist/ui/util.dart';

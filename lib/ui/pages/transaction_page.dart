@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kapitalist/models/api/api.dart';
 
-import 'package:kapitalist/models/api/transaction_creation_request.dart';
-import 'package:kapitalist/models/category.dart';
-import 'package:kapitalist/models/wallet.dart';
+import 'package:business/business.dart';
+
 import 'package:kapitalist/ui/util.dart';
 
 typedef TransactionCreationCallback = void Function(TransactionCreationRequest);

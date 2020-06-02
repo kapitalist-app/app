@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:kapitalist/redux/state.dart';
+
+import 'package:business/business.dart';
 
 class TransactionPageViewModel extends BaseModel<AppState> {
 
