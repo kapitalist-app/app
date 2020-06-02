@@ -1,11 +1,10 @@
-import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/common/actions.dart';
 
-class ApiMiddleware extends MiddlewareClass<AppState> {
+/*class ApiMiddleware extends MiddlewareClass<AppState> {
   final SharedPreferences prefs;
 
   ApiMiddleware(this.prefs);
@@ -36,4 +35,4 @@ class ApiMiddleware extends MiddlewareClass<AppState> {
     await prefs.setString(KapitalistKeys.BASE_URL, url.toString());
     print("Saved baseUrl: baseUrl=$url");
   }
-}
+}*/

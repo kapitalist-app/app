@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:async_redux/async_redux.dart';
+import 'package:kapitalist/redux/state.dart';
 import 'package:meta/meta.dart';
 
 import 'package:kapitalist/models/api/transaction_creation_request.dart';
@@ -15,7 +19,12 @@ class TransactionCreatedAction {
   TransactionCreatedAction({@required this.response});
 }
 
-class RefreshTransactionsAction {}
+class RefreshTransactionsAction extends ReduxAction<AppState> {
+  @override
+  FutureOr<AppState> reduce() {
+    return null;
+  }
+}
 
 class TransactionsFetchedAction {
   final List<TransactionResponse> response;

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/models/api/wallet_creation_request.dart';
-import 'package:kapitalist/redux/state.dart';
-import 'package:kapitalist/redux/wallet/actions.dart';
 import 'package:kapitalist/ui/util.dart';
 
+typedef WalletCreationCallback = void Function(WalletCreationRequest);
+
 class WalletPage extends StatefulWidget {
+  WalletCreationCallback onSubmit;
 
   WalletPage({
     Key key,
+    @required this.onSubmit,
   }) : super(key: key ?? null);
 
   @override
@@ -38,7 +39,7 @@ class _WalletPageState extends State<WalletPage> {
       ? 'Color must be given in hexadecimal'
       : null;
 
-  void _onSubmit(BuildContext ctx) {
+  void _handleSubmit(BuildContext ctx) {
     final form = _keyForm.currentState;
 
     if (form.validate()) {
@@ -52,9 +53,7 @@ class _WalletPageState extends State<WalletPage> {
         ..walletType = type
         ..balance = balance
         ..color = color);
-      final store = StoreProvider.of<AppState>(context);
-      store.dispatch(CreateWalletAction(request: req));
-      // XXX: This should only happen after the event was confirmed?
+      this.widget.onSubmit(req);
       Navigator.of(ctx).pop();
     }
   }
@@ -110,7 +109,7 @@ class _WalletPageState extends State<WalletPage> {
               child: Text('Add Wallet'),
               color: Colors.green,
               minWidth: 100.0,
-              onPressed: () => _onSubmit(ctx),
+              onPressed: () => _handleSubmit(ctx),
             )
           ],
         ),

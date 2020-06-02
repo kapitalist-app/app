@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:kapitalist/redux/state.dart';
-import 'package:kapitalist/redux/transaction/actions.dart';
 import 'package:kapitalist/routes.dart';
 
 class DrawerPage extends StatelessWidget {
+  final String email;
+  final VoidCallback onRefreshTransactions;
 
-  const DrawerPage();
+  const DrawerPage({Key key, this.email, this.onRefreshTransactions})
+      : super(key: key);
 
   Widget _buildHeader() {
     return new Stack(
@@ -39,10 +39,7 @@ class DrawerPage extends StatelessWidget {
                   fontSize: 16.0,
                 ),
               ),
-              StoreConnector<AppState, String>(
-                converter: (store) => store.state.authState.email,
-                builder: (BuildContext ctx, String email) => Text(email),
-              ),
+              Text(email)
             ],
           ),
         ),
@@ -67,9 +64,7 @@ class DrawerPage extends StatelessWidget {
         ),
         MaterialButton(
           child: Text('Refresh'),
-          onPressed: () {
-            StoreProvider.of<AppState>(ctx).dispatch(RefreshTransactionsAction());
-          },
+          onPressed: this.onRefreshTransactions,
         ),
       ],
     );

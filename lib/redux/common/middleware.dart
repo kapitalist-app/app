@@ -1,11 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:redux/redux.dart';
 
 import 'package:kapitalist/keys.dart';
 import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/common/actions.dart';
 
-class CommonMiddleware extends MiddlewareClass<AppState> {
+/*class CommonMiddleware extends MiddlewareClass<AppState> {
   final SharedPreferences prefs;
 
   CommonMiddleware(this.prefs);
@@ -33,4 +32,4 @@ class CommonMiddleware extends MiddlewareClass<AppState> {
     await prefs.setBool(KapitalistKeys.ONBOARDING_DONE, true);
     print("Saved onboardingDone: true");
   }
-}
+}*/

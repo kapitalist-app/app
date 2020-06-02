@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
+import 'package:kapitalist/models/api/api.dart';
 
 import 'package:kapitalist/models/api/transaction_creation_request.dart';
 import 'package:kapitalist/models/category.dart';
 import 'package:kapitalist/models/wallet.dart';
-import 'package:kapitalist/redux/state.dart';
-import 'package:kapitalist/redux/transaction/actions.dart';
 import 'package:kapitalist/ui/util.dart';
 
+typedef TransactionCreationCallback = void Function(TransactionCreationRequest);
+
 class TransactionPage extends StatefulWidget {
+  final List<Wallet> wallets;
+  final List<Category> categories;
+  final TransactionCreationCallback onSubmit;
+
+  const TransactionPage(
+      {Key key,
+      @required this.wallets,
+      @required this.categories,
+      @required this.onSubmit})
+      : super(key: key);
+
   @override
   _TransactionPageState createState() {
     return new _TransactionPageState();
@@ -40,7 +51,8 @@ class _TransactionPageState extends State<TransactionPage> {
       final category = _keyCategory.currentState.value;
       final name = _keyName.currentState.value;
       final amount = int.parse(_keyAmount.currentState.value);
-      final timestamp = DateTime.tryParse(_keyTimestamp.currentState?.value)?.toUtc();
+      final timestamp =
+          DateTime.tryParse(_keyTimestamp.currentState?.value)?.toUtc();
 
       final req = TransactionCreationRequest((b) => b
         ..walletId = wallet.id
@@ -48,10 +60,7 @@ class _TransactionPageState extends State<TransactionPage> {
         ..name = name
         ..amount = amount
         ..timestamp = timestamp);
-      final store = StoreProvider.of<AppState>(context);
-      store.dispatch(CreateTransactionAction(request: req));
-      // XXX: This should only happen after the event was confirmed?
-      Navigator.of(ctx).pop();
+      this.widget.onSubmit(req);
     }
   }
 
@@ -75,40 +84,30 @@ class _TransactionPageState extends State<TransactionPage> {
               icon: Icons.assignment,
               inputType: TextInputType.text,
             ),
-            StoreConnector<AppState, List<Wallet>>(
-              converter: (store) => store.state.walletState.wallets,
-              builder: (_, wallets) {
-                return DropdownButtonFormField(
-                    key: _keyWallet,
-                    value: _wallet,
-                    items: wallets.map<DropdownMenuItem<Wallet>>((w) {
-                      return DropdownMenuItem(value: w, child: Text(w.name));
-                    }).toList(),
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.account_balance_wallet),
-                    ),
-                    onChanged: (val) => setState(() => _wallet = val),
-                    validator: (val) =>
-                        val == null ? 'Wallet cannot be empty' : null);
-              },
-            ),
-            StoreConnector<AppState, List<Category>>(
-              converter: (store) => store.state.categoryState.categories,
-              builder: (_, categories) {
-                return DropdownButtonFormField(
-                    key: _keyCategory,
-                    value: _category,
-                    items: categories.map<DropdownMenuItem<Category>>((c) {
-                      return DropdownMenuItem(value: c, child: Text(c.name));
-                    }).toList(),
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.adjust),
-                    ),
-                    onChanged: (val) => setState(() => _category = val),
-                    validator: (val) =>
-                    val == null ? 'Category cannot be empty' : null);
-              },
-            ),
+            DropdownButtonFormField(
+                key: _keyWallet,
+                value: _wallet,
+                items: this.widget.wallets.map<DropdownMenuItem<Wallet>>((w) {
+                  return DropdownMenuItem(value: w, child: Text(w.name));
+                }).toList(),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.account_balance_wallet),
+                ),
+                onChanged: (val) => setState(() => _wallet = val),
+                validator: (val) =>
+                    val == null ? 'Wallet cannot be empty' : null),
+            DropdownButtonFormField(
+                key: _keyCategory,
+                value: _category,
+                items: this.widget.categories.map<DropdownMenuItem<Category>>((c) {
+                  return DropdownMenuItem(value: c, child: Text(c.name));
+                }).toList(),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.adjust),
+                ),
+                onChanged: (val) => setState(() => _category = val),
+                validator: (val) =>
+                    val == null ? 'Category cannot be empty' : null),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(
               _keyAmount,

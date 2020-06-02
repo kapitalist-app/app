@@ -1,16 +1,15 @@
 import 'dart:async';
 
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:kapitalist/models/register_login_data.dart';
-import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/auth/actions.dart';
-import 'package:kapitalist/redux/common/actions.dart';
-import 'package:kapitalist/routes.dart';
 import 'package:kapitalist/ui/logo.dart';
 import 'package:kapitalist/ui/util.dart';
 
+typedef AuthCallback = void Function(AuthType, RegisterLoginData);
+typedef UrlCallback = void Function(Uri);
 typedef ValidationCallback = Future<bool> Function();
 
 class OnboardingPage extends StatefulWidget {
@@ -18,8 +17,15 @@ class OnboardingPage extends StatefulWidget {
   final FormFieldValidator emailValidator;
   final FormFieldValidator passwordValidator;
 
+  final UrlCallback onSetBaseUrl;
+  final AuthCallback onDoAuth;
+  final VoidCallback onOnboardingDone;
+
   OnboardingPage({
     Key key,
+    @required this.onSetBaseUrl,
+    @required this.onDoAuth,
+    @required this.onOnboardingDone,
     this.urlValidator,
     this.emailValidator,
     this.passwordValidator,
@@ -65,11 +71,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   @override
   Widget build(BuildContext ctx) {
-    if (_subscription == null) {
-      final store = StoreProvider.of<AppState>(context);
-      _subscription = store.onChange.listen((data) {
         // If we are logged in..
-        if (data.authState.loggedIn) {
+        /*if (data.auth.loggedIn) {
           // ..and onboarding was already done -> Navigate to MainPage
           if (data.onboardingDone) {
             debugPrint(
@@ -86,14 +89,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
           }
         }
         // If the baseUrl is set => Move to login/register page once(!)
-        else if (data.apiState.baseUrl != null && _idx != 2) {
+        else if (data.api.baseUrl != null && _idx != 2) {
           debugPrint("BaseUrl is/was set -> Skipping selection screen");
           setState(() {
             _idx = 2;
-          });
-        }
-      });
-    }
+          });*/
 
     return Scaffold(
       body: Container(
@@ -194,9 +194,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return false;
     }
 
-    final store = StoreProvider.of<AppState>(context);
     // XXX: This might throw
-    store.dispatch(SetBaseUrlAction(Uri.parse(_keyUrl.currentState.value)));
+    this.widget.onSetBaseUrl(Uri.parse(_keyUrl.currentState.value));
 
     // XXX: We need to wait for the change to take effect, so we return false
     return false;
@@ -214,8 +213,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ..email = _keyEmail.currentState.value
       ..password = _keyPassword.currentState.value);
 
-    final store = StoreProvider.of<AppState>(context);
-    store.dispatch(DoAuthAction(_signupState, data));
+    this.widget.onDoAuth(_signupState, data);
 
     // Always return false, because we wait for the authentication to succeed
     return false;
@@ -287,10 +285,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             });
           }
           else {
-            // Else just navigate to HomePage
-            final store = StoreProvider.of<AppState>(context);
-            store.dispatch(OnboardingDoneAction());
-            Navigator.of(context).pushReplacementNamed(KapitalistRoutes.HOME);
+            this.widget.onOnboardingDone();
           }
         },
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 100),

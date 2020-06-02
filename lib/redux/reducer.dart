@@ -9,10 +9,10 @@ import 'package:kapitalist/redux/wallet/reducer.dart';
 AppState appReducer(AppState state, dynamic action) {
   return new AppState(
     onboardingDone: onboardingReducer(state.onboardingDone, action),
-    apiState: apiReducer(state.apiState, action),
-    authState: authReducer(state.authState, action),
-    categoryState: categoryReducer(state.categoryState, action),
-    transactionState: transactionReducer(state.transactionState, action),
-    walletState: walletReducer(state.walletState, action),
+    api: apiReducer(state.api, action),
+    auth: authReducer(state.auth, action),
+    category: categoryReducer(state.category, action),
+    transaction: transactionReducer(state.transaction, action),
+    wallet: walletReducer(state.wallet, action),
   );
 }

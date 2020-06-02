@@ -1,6 +1,5 @@
 import 'package:http/http.dart';
 
-import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:kapitalist/keys.dart';
@@ -9,7 +8,7 @@ import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/redux/auth/actions.dart';
 import 'package:kapitalist/redux/common/actions.dart';
 
-class AuthMiddleware extends MiddlewareClass<AppState> {
+/*class AuthMiddleware extends MiddlewareClass<AppState> {
   final Client client;
   final SharedPreferences prefs;
 
@@ -21,7 +20,7 @@ class AuthMiddleware extends MiddlewareClass<AppState> {
       await _loadCredentials(store);
     } else if (action is DoAuthAction) {
       // XXX: Check if this is okay or if api might be "old state"
-      final api = store.state.apiState.api;
+      final api = store.state.api.api;
       // XXX: api currently throws
       var success = false;
       switch (action.type) {
@@ -61,4 +60,4 @@ class AuthMiddleware extends MiddlewareClass<AppState> {
     await prefs.setString(KapitalistKeys.PASSWORD, data.password);
     print("Saved credentials: email=${data.email}, password=${data.password}");
   }
-}
+}*/

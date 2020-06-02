@@ -8,29 +8,47 @@ import 'package:kapitalist/redux/wallet/state.dart';
 
 class AppState {
   final bool onboardingDone;
-  final ApiState apiState;
-  final AuthState authState;
-  final CategoryState categoryState;
-  final TransactionState transactionState;
-  final WalletState walletState;
+  final ApiState api;
+  final AuthState auth;
+  final CategoryState category;
+  final TransactionState transaction;
+  final WalletState wallet;
 
   const AppState({
     @required this.onboardingDone,
-    @required this.apiState,
-    @required this.authState,
-    @required this.categoryState,
-    @required this.transactionState,
-    @required this.walletState,
+    @required this.api,
+    @required this.auth,
+    @required this.category,
+    @required this.transaction,
+    @required this.wallet,
   });
 
-  factory AppState.initial() {
+  static AppState initial() {
     return AppState(
       onboardingDone: false,
-      apiState: ApiState.initial(),
-      authState: AuthState.initial(),
-      categoryState: CategoryState.initial(),
-      transactionState: TransactionState.initial(),
-      walletState: WalletState.initial(),
+      api: ApiState.initial(),
+      auth: AuthState.initial(),
+      category: CategoryState.initial(),
+      transaction: TransactionState.initial(),
+      wallet: WalletState.initial(),
+    );
+  }
+
+  AppState copyWith({
+    bool onboardingDone,
+    ApiState apiState,
+    AuthState authState,
+    CategoryState categoryState,
+    TransactionState transactionState,
+    WalletState walletState,
+  }) {
+    return AppState(
+      onboardingDone: onboardingDone ?? this.onboardingDone,
+      api: apiState ?? this.api,
+      auth: authState ?? this.auth,
+      category: categoryState ?? this.category,
+      transaction: transactionState ?? this.transaction,
+      wallet: walletState ?? this.wallet,
     );
   }
 }

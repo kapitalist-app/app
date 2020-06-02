@@ -16,8 +16,7 @@ dependencies:
   shared_preferences: ^0.5.0
 
   # Redux helpers
-  flutter_redux: ^0.6.0
-  rxdart: ^0.24.0
+  async_redux: ^2.9.0
 
   # Built_value
   built_value: ^7.1.0

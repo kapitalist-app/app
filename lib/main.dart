@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart';
-import 'package:kapitalist/redux/common/actions.dart';
-import 'package:redux/redux.dart';
+
+import 'package:async_redux/async_redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:kapitalist/routes.dart';
+import 'package:kapitalist/redux/common/actions.dart';
 import 'package:kapitalist/redux/store.dart';
 import 'package:kapitalist/redux/state.dart';
 import 'package:kapitalist/ui/main_page.dart';
