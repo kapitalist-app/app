@@ -1,7 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
-import 'package:kapitalist/models/iso8601_datetime_serializer.dart';
 
 part 'serializers.g.dart';
 
@@ -12,6 +11,5 @@ part 'serializers.g.dart';
 // JSON approach (which is what you'll find in the json_strings.dart file in
 // this project), you can add the StandardJsonPlugin as you see here.
 final Serializers serializers = (_$serializers.toBuilder()
-      ..add(Iso8601DateTimeSerializer())
       ..addPlugin(StandardJsonPlugin()))
     .build();

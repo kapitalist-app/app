@@ -8,9 +8,9 @@ import 'package:business/transaction/models/transaction_response.dart';
 import 'package:business/transaction/models/transaction_state.dart';
 
 class TransactionCreatedAction extends ReduxAction<AppState> {
-  final TransactionResponse response;
+  TransactionCreatedAction(this.response);
 
-  TransactionCreatedAction({@required this.response});
+  final TransactionResponse response;
 
   @override
   AppState reduce() {

@@ -1,21 +1,27 @@
 import 'package:meta/meta.dart';
 
+import 'package:business/auth/models/auth_data.dart';
+import 'package:business/auth/models/auth_token.dart';
+
 class AuthState {
-  final String email;
-  final String password;
-
-  // XXX: Decide if this is useful
-  bool get loggedIn => email != null;
-
+  // Constructor
   const AuthState({
-    @required this.email,
-    @required this.password,
+    @required this.token,
+    @required this.data,
   });
 
+  // Properties
+  bool get authenticated => (token.token ?? '').isNotEmpty;
+
+  // Factories
   factory AuthState.initial() {
     return AuthState(
-      email: null,
-      password: null,
+      token: null,
+      data: null,
     );
   }
+
+  // Fields
+  final AuthToken token;
+  final AuthData data;
 }

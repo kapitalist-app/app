@@ -32,10 +32,13 @@ class _WalletPageState extends State<WalletPage> {
   // Validators
   String _validateName(String name) =>
       name.isEmpty ? 'Wallet name cannot be empty' : null;
+
   String _validateType(String type) =>
       type.isEmpty ? 'Wallet type must be set' : null;
+
   String _validateBalance(String balance) =>
       int.tryParse(balance) == null ? 'Balance must be an integer' : null;
+
   String _validateColor(String color) => int.tryParse(color, radix: 16) == null
       ? 'Color must be given in hexadecimal'
       : null;
@@ -96,7 +99,8 @@ class _WalletPageState extends State<WalletPage> {
               'Balance',
               _validateBalance,
               icon: Icons.account_balance,
-              inputType: TextInputType.numberWithOptions(signed: true, decimal: false),
+              inputType:
+                  TextInputType.numberWithOptions(signed: true, decimal: false),
             ),
             const SizedBox(height: 15.0),
             UiUtil.buildTextFormField(

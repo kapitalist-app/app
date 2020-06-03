@@ -38,7 +38,8 @@ class LastTransactionsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = this.categories;
-    final tx = this.transactions
+    final tx = this
+        .transactions
         .where((t) => _isFromActiveWallet(t, this.wallets))
         .toList();
     tx.sort((a, b) => a.timestamp.compareTo(b.timestamp));

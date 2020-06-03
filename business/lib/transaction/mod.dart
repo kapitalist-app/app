@@ -1,6 +1,6 @@
 // actions
 export 'actions/create_transaction_action.dart';
-export 'actions/fetch_transaction_action.dart';
+export 'actions/fetch_transactions_action.dart';
 export 'actions/transaction_created_action.dart';
 export 'actions/transactions_fetched_action.dart';
 export 'actions/update_transaction_action.dart';

@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/models/register_login_data.dart';
 import 'package:kapitalist/ui/logo.dart';
 import 'package:kapitalist/ui/util.dart';
 
-typedef AuthCallback = void Function(AuthType, RegisterLoginData);
+typedef AuthCallback = void Function(AuthType, AuthData);
 typedef UrlCallback = void Function(Uri);
 typedef ValidationCallback = Future<bool> Function();
 
@@ -210,7 +209,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return false;
     }
 
-    final data = RegisterLoginData((b) => b
+    final data = AuthData((b) => b
       ..email = _keyEmail.currentState.value
       ..password = _keyPassword.currentState.value);
 

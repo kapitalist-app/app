@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+
 import 'package:charts_flutter/flutter.dart' as charts;
 
 import 'package:kapitalist/ui/cards/card_title.dart';
@@ -72,6 +73,7 @@ class SimplePieChart extends StatelessWidget {
       )
     ];
   }
+
   // EXCLUDE_FROM_GALLERY_DOCS_END
 
   @override
@@ -104,5 +106,5 @@ class LinearSales {
   final int year;
   final int sales;
 
-LinearSales(this.year, this.sales);
+  LinearSales(this.year, this.sales);
 }

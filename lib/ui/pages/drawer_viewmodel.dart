@@ -1,5 +1,6 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
+
+import 'package:async_redux/async_redux.dart';
 
 import 'package:business/business.dart';
 
@@ -16,7 +17,7 @@ class DrawerViewModel extends BaseModel<AppState> {
 
   @override
   DrawerViewModel fromStore() => DrawerViewModel.build(
-      email: state.auth.email,
+      email: state.auth.data.email,
       onRefreshTransactions: () => dispatch(FetchTransactionsAction()),
     );
 

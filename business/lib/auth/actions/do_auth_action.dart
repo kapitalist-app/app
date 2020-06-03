@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:async_redux/async_redux.dart';
 
 import 'package:business/app_state.dart';
+import 'package:business/api/auth_api.dart';
 import 'package:business/auth/actions/auth_completed_action.dart';
 import 'package:business/auth/models/auth_data.dart';
+import 'package:business/auth/models/auth_token.dart';
 import 'package:business/auth/models/auth_type.dart';
 
 class DoAuthAction extends ReduxAction<AppState> {
@@ -16,21 +18,21 @@ class DoAuthAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     // XXX: Check if this is okay or if api might be "old state"
-    final api = state.api.api;
+    final url = state.api.baseUrl;
+    final api = AuthApi(url);
 
     // XXX: api currently throws
-    var success = false;
+    AuthToken token;
     switch (this.type) {
       case AuthType.REGISTER:
-        success = await api.register(this.data.email, this.data.password);
+        token = await api.register(this.data);
         break;
       case AuthType.LOGIN:
-        success = await api.login(this.data.email, this.data.password);
+        token = await api.login(this.data);
         break;
     }
 
-    store.dispatch(AuthCompletedAction(success, this.data));
-
+    store.dispatch(AuthCompletedAction(token, this.data));
     return null;
   }
 }

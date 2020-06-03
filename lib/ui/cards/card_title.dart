@@ -18,7 +18,8 @@ class CardTitle extends StatelessWidget {
             padding: const EdgeInsets.only(left: 5.0),
             child: Text(
               this.title,
-              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
         ),

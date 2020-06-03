@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kapitalist/models/api/api.dart';
 
 import 'package:business/business.dart';
 
@@ -98,7 +97,8 @@ class _TransactionPageState extends State<TransactionPage> {
             DropdownButtonFormField(
                 key: _keyCategory,
                 value: _category,
-                items: this.widget.categories.map<DropdownMenuItem<Category>>((c) {
+                items:
+                    this.widget.categories.map<DropdownMenuItem<Category>>((c) {
                   return DropdownMenuItem(value: c, child: Text(c.name));
                 }).toList(),
                 decoration: InputDecoration(
