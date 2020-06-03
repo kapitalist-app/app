@@ -9,5 +9,6 @@ ios/.generated/
 packages
 .flutter-plugins
 *.g.dart
+*.zip
 
 .dart_tool
