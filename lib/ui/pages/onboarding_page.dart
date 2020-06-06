@@ -1,16 +1,11 @@
 import 'dart:async';
-
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
+import 'package:kapitalist/types.dart';
 import 'package:kapitalist/ui/logo.dart';
 import 'package:kapitalist/ui/util.dart';
-
-typedef AuthCallback = void Function(AuthType, AuthData);
-typedef UrlCallback = void Function(Uri);
-typedef ValidationCallback = Future<bool> Function();
 
 class OnboardingPage extends StatefulWidget {
   final FormFieldValidator urlValidator;
@@ -307,7 +302,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   // Validation
   String _validateUrl(String url) {
-    debugPrint('url: $url');
+    debugPrint('[OnboardingPage] Validating url: $url');
     return !url.contains('https') ? 'Url invalid' : null;
   }
 
