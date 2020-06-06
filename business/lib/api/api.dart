@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:business/auth/models/auth_token.dart';
@@ -60,9 +61,9 @@ class Api {
 
   void _printResponse(http.Response resp) {
     var req = resp.request as http.Request;
-    print("${req.method} ${req.url}");
-    print("H: ${req.headers ?? '--'}");
-    print("P: ${req.body ?? '--'}");
-    print("=> ${resp.statusCode} - ${resp.body ?? '--'}");
+    debugPrint("${req.method} ${req.url}");
+    debugPrint("H: ${req.headers ?? '--'}");
+    debugPrint("P: ${req.body ?? '--'}");
+    debugPrint("=> ${resp.statusCode} - ${resp.body ?? '--'}");
   }
 }

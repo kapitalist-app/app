@@ -1,5 +1,4 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:meta/meta.dart';
 
 import 'package:business/app_state.dart';
 import 'package:business/keys.dart';
@@ -10,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SetBaseUrlAction extends ReduxAction<AppState> {
   final Uri baseUrl;
 
-  SetBaseUrlAction({@required this.baseUrl});
+  SetBaseUrlAction(this.baseUrl);
 
   @override
   Future<AppState> reduce() async {
