@@ -1,14 +1,20 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:business/auth/models/auth_data.dart';
 import 'package:business/auth/models/auth_token.dart';
 
 class Api {
   // Constructor
   const Api();
+  
+  Future<bool> checkBaseUrl(Uri baseUrl) async {
+    final url = baseUrl.replace(path: '/version');
+    return http.get(url).then((resp) {
+      _printResponse(resp);
+      return resp.statusCode == HttpStatus.ok && resp.body.contains('kapitalist v');
+    });
+  }
 
   Future<String> get(Uri url, {AuthToken token, bool retry = false}) async {
     final headers = _getHeaders(token: token);

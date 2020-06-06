@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:test/test.dart';
 
-import 'package:kapitalist/util.dart';
+import 'package:business/util.dart';
 
 void main() {
   group('parseHexColor', () {

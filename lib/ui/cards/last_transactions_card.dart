@@ -4,7 +4,7 @@ import 'package:business/business.dart';
 
 import 'package:kapitalist/ui/cards/card_title.dart';
 import 'package:kapitalist/ui/cards/kapitalist_card.dart';
-import 'package:kapitalist/util.dart';
+import 'package:business/util.dart';
 
 class LastTransactionsCard extends StatelessWidget {
   final List<Wallet> wallets;

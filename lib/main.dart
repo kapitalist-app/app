@@ -12,6 +12,8 @@ import 'package:kapitalist/ui/pages/transaction_page.dart';
 import 'package:kapitalist/ui/pages/wallet_page.dart';
 
 Future<void> main() async {
+  // FIXME: figure out, if we need this here
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   var store = createStore(Client(), prefs);
 
