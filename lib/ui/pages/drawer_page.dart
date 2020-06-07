@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 import 'package:kapitalist/routes.dart';
 
@@ -6,7 +7,8 @@ class DrawerPage extends StatelessWidget {
   final String email;
   final VoidCallback onRefreshTransactions;
 
-  const DrawerPage({Key key, this.email, this.onRefreshTransactions})
+  const DrawerPage(
+      {Key key, @required this.email, @required this.onRefreshTransactions})
       : super(key: key);
 
   Widget _buildHeader() {

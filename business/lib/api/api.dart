@@ -17,7 +17,7 @@ class Api {
     });
   }
 
-  Future<String> get(Uri url, {AuthToken token, bool retry = false}) async {
+  Future<String> get(Uri url, {AuthToken token}) async {
     final headers = _getHeaders(token: token);
     return http.get(url, headers: headers).then((resp) {
       _printResponse(resp);

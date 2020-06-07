@@ -307,12 +307,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   String _validateEmail(String email) {
-    debugPrint('email: $email');
+    debugPrint('[OnboardingPage] Validating email: $email');
     return !email.contains('@') ? 'Invalid email address' : null;
   }
 
   String _validatePassword(String password) {
-    debugPrint('password: $password');
+    debugPrint('[OnboardingPage] Validating password: $password');
     return null;
   }
 }
