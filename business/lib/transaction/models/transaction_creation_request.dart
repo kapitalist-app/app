@@ -1,6 +1,5 @@
 import 'dart:convert' show json;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -10,11 +9,7 @@ part 'transaction_creation_request.g.dart';
 
 abstract class TransactionCreationRequest
     implements Built<TransactionCreationRequest, TransactionCreationRequestBuilder> {
-  TransactionCreationRequest._();
-
-  factory TransactionCreationRequest([updates(TransactionCreationRequestBuilder b)]) =
-      _$TransactionCreationRequest;
-
+  // Fields
   @BuiltValueField(wireName: 'wallet_id')
   int get walletId;
 
@@ -31,6 +26,13 @@ abstract class TransactionCreationRequest
   @BuiltValueField(wireName: 'ts')
   DateTime get timestamp;
 
+  // Constructors
+  TransactionCreationRequest._();
+
+  factory TransactionCreationRequest([updates(TransactionCreationRequestBuilder b)]) =
+  _$TransactionCreationRequest;
+
+  // Serialization
   String toJson() {
     return json.encode(
         serializers.serializeWith(TransactionCreationRequest.serializer, this));

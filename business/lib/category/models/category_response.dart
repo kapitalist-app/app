@@ -1,6 +1,5 @@
 import 'dart:convert' show json;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -10,10 +9,7 @@ part 'category_response.g.dart';
 
 abstract class CategoryResponse
     implements Built<CategoryResponse, CategoryResponseBuilder> {
-  CategoryResponse._();
-
-  factory CategoryResponse([updates(CategoryResponseBuilder b)]) = _$CategoryResponse;
-
+  // Fields
   @BuiltValueField(wireName: 'id')
   int get id;
 
@@ -34,6 +30,12 @@ abstract class CategoryResponse
   @BuiltValueField(wireName: 'created_at')
   DateTime get createdAt;
 
+  // Constructors
+  CategoryResponse._();
+
+  factory CategoryResponse([updates(CategoryResponseBuilder b)]) = _$CategoryResponse;
+
+  // Serialization
   String toJson() {
     return json
         .encode(serializers.serializeWith(CategoryResponse.serializer, this));

@@ -15,7 +15,7 @@ class CreateWalletAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
-    final baseUrl = state.api.baseUrl;
+    final baseUrl = state.baseUrl;
     final api = WalletApi(baseUrl);
     final resp = await api.createWallet(this.request, state.auth.token);
     if (resp != null) {

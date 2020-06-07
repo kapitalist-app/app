@@ -1,17 +1,21 @@
-import 'package:meta/meta.dart';
+import 'package:built_value/built_value.dart';
+import 'package:built_collection/built_collection.dart';
 
 import 'package:business/category/models/category.dart';
 
-class CategoryState {
-  final List<Category> categories;
+part 'category_state.g.dart';
 
-  const CategoryState({
-    @required this.categories,
-  });
+abstract class CategoryState
+    implements Built<CategoryState, CategoryStateBuilder> {
+  // Fields
+  BuiltList<Category> get categories;
 
-  static CategoryState initial() {
-    return CategoryState(
-      categories: const <Category>[],
-    );
-  }
+  // Constructor
+  CategoryState._();
+
+  factory CategoryState([updates(CategoryStateBuilder b)]) = _$CategoryState;
+
+  // Initial state
+  static CategoryState initial() =>
+      CategoryState((b) => b..categories = <Category>[].build().toBuilder());
 }

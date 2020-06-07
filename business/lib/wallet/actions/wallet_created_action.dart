@@ -14,9 +14,9 @@ class WalletCreatedAction extends ReduxAction<AppState> {
 
   @override
   AppState reduce() {
-    var wallets = List.of(state.wallet.wallets);
-    wallets.add(Wallet.fromResponse(this.response));
-    final walletState = WalletState(wallets: List.unmodifiable(wallets));
-    return state.copyWith(walletState: walletState);
+    return state.rebuild((b) => b
+      ..wallet.update((b) => b
+        ..wallets.add(Wallet.fromResponse(this.response))
+    ));
   }
 }

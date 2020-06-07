@@ -9,7 +9,7 @@ import 'package:kapitalist/types.dart';
 class OnboardingViewModel extends BaseModel<AppState> {
   OnboardingViewModel();
 
-  UrlCallback onSetBaseUrl;
+  ValueSetter<Uri> onSetBaseUrl;
   AuthCallback onDoAuth;
   VoidCallback onOnboardingDone;
 

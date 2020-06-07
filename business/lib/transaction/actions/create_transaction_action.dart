@@ -15,7 +15,7 @@ class CreateTransactionAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
-    final baseUrl = state.api.baseUrl;
+    final baseUrl = state.baseUrl;
     final api = TransactionApi(baseUrl);
 
     final resp = await api.createTransaction(this.request, state.auth.token);

@@ -8,5 +8,4 @@ class TransactionPageViewModel extends BaseModel<AppState> {
     // TODO: implement fromStore
     throw UnimplementedError();
   }
-
 }

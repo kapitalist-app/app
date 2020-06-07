@@ -13,7 +13,9 @@ class AuthCompletedAction extends ReduxAction<AppState> {
 
   @override
   AppState reduce() {
-    final auth = AuthState(token: this.token, data: this.data);
+    final auth = AuthState((b) => b
+      ..token = this.token.toBuilder()
+      ..data = this.data.toBuilder());
     // FIXME: We might want to refresh our caches here but need to set token before
     // Maybe add a bool refresh flag to the action?  return state.copyWith(authState: auth);
   }

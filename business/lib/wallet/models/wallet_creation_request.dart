@@ -1,6 +1,5 @@
 import 'dart:convert' show json;
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -10,11 +9,7 @@ part 'wallet_creation_request.g.dart';
 
 abstract class WalletCreationRequest
     implements Built<WalletCreationRequest, WalletCreationRequestBuilder> {
-  WalletCreationRequest._();
-
-  factory WalletCreationRequest([updates(WalletCreationRequestBuilder b)]) =
-      _$WalletCreationRequest;
-
+  // Fields
   @BuiltValueField(wireName: 'name')
   String get name;
 
@@ -27,6 +22,13 @@ abstract class WalletCreationRequest
   @BuiltValueField(wireName: 'color')
   String get color;
 
+  // Constructors
+  WalletCreationRequest._();
+
+  factory WalletCreationRequest([updates(WalletCreationRequestBuilder b)]) =
+  _$WalletCreationRequest;
+
+  // Serialization
   String toJson() {
     return json.encode(
         serializers.serializeWith(WalletCreationRequest.serializer, this));

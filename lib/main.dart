@@ -1,14 +1,12 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:kapitalist/ui/pages/onboarding_page_connector.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:business/business.dart';
 
+import 'package:kapitalist/persistor.dart';
 import 'package:kapitalist/routes.dart';
 import 'package:kapitalist/ui/main_page.dart';
-import 'package:kapitalist/ui/pages/onboarding_page.dart';
+import 'package:kapitalist/ui/pages/onboarding_page_connector.dart';
 import 'package:kapitalist/ui/pages/transaction_page.dart';
 import 'package:kapitalist/ui/pages/wallet_page.dart';
 
@@ -16,11 +14,12 @@ Future<void> main() async {
   // FIXME: figure out, if we need this here
   WidgetsFlutterBinding.ensureInitialized();
 
-  final prefs = await SharedPreferences.getInstance();
-  var store = createStore(Client(), prefs);
+  var store = Store(
+    initialState: AppState.initial(),
+    persistor: KapitalistPersistor(),
+  );
 
   store.dispatch(InitAction());
-
   runApp(KapitalistApp(store));
 }
 

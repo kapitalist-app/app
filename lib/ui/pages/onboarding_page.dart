@@ -12,7 +12,7 @@ class OnboardingPage extends StatefulWidget {
   final FormFieldValidator emailValidator;
   final FormFieldValidator passwordValidator;
 
-  final UrlCallback onSetBaseUrl;
+  final ValueSetter<Uri> onSetBaseUrl;
   final AuthCallback onDoAuth;
   final VoidCallback onOnboardingDone;
 

@@ -1,17 +1,23 @@
-import 'package:meta/meta.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
 
 import 'package:business/transaction/models/transaction.dart';
 
-class TransactionState {
-  final List<Transaction> transactions;
+part 'transaction_state.g.dart';
 
-  const TransactionState({
-    @required this.transactions,
-  });
+abstract class TransactionState implements Built<TransactionState, TransactionStateBuilder>{
+  // Fields
+  BuiltList<Transaction> get transactions;
 
-  factory TransactionState.initial() {
-    return TransactionState(
-      transactions: const <Transaction>[],
+  // Constructors
+  TransactionState._();
+
+  factory TransactionState([updates(TransactionStateBuilder b)]) = _$TransactionState;
+
+  // Initial state
+  static TransactionState initial() {
+    return TransactionState((b) => b
+      ..transactions = [].build().toBuilder()
     );
   }
 }

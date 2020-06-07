@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/types.dart';
 import 'package:kapitalist/ui/util.dart';
 
 class WalletPage extends StatefulWidget {
-  final WalletCreationCallback onSubmit;
+  final ValueSetter<WalletCreationRequest> onSubmit;
 
   WalletPage({
     Key key,

@@ -1,27 +1,30 @@
-import 'package:meta/meta.dart';
+import 'package:built_value/built_value.dart';
 
 import 'package:business/auth/models/auth_data.dart';
 import 'package:business/auth/models/auth_token.dart';
 
-class AuthState {
-  // Constructor
-  const AuthState({
-    @required this.token,
-    @required this.data,
-  });
+part 'auth_state.g.dart';
 
-  // Properties
-  bool get authenticated => (token.token ?? '').isNotEmpty;
-
-  // Factories
-  factory AuthState.initial() {
-    return AuthState(
-      token: null,
-      data: null,
-    );
-  }
-
+abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
   // Fields
-  final AuthToken token;
-  final AuthData data;
+  @nullable
+  AuthToken get token;
+
+  @nullable
+  AuthData get data;
+
+  // Derived getters
+  bool get authenticated => token.token?.isNotEmpty;
+
+  // Constructors
+  AuthState._();
+
+  factory AuthState([updates(AuthStateBuilder b)]) = _$AuthState;
+
+  // Initial state
+  static AuthState initial() {
+    return AuthState((b) => b
+      ..token = null
+      ..data = null);
+  }
 }

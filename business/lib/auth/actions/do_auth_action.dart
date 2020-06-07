@@ -18,7 +18,7 @@ class DoAuthAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     // XXX: Check if this is okay or if api might be "old state"
-    final url = state.api.baseUrl;
+    final url = state.baseUrl;
     final api = AuthApi(url);
 
     // XXX: api currently throws

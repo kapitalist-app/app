@@ -10,7 +10,7 @@ import 'package:business/transaction/models/transaction_response.dart';
 class FetchTransactionsAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
-    final baseUrl = state.api.baseUrl;
+    final baseUrl = state.baseUrl;
     final api = TransactionApi(baseUrl);
 
     final resps = <TransactionResponse>[];

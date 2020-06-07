@@ -9,7 +9,7 @@ import 'package:business/category/actions/categories_fetched_action.dart';
 class FetchCategoriesAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
-    final baseUrl = state.api.baseUrl;
+    final baseUrl = state.baseUrl;
     final api = CategoryApi(baseUrl);
 
     final resps = await api.getCategories(state.auth.token);
