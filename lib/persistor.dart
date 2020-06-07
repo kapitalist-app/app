@@ -15,8 +15,13 @@ class KapitalistPersistor extends Persistor<AppState> {
       {AppState lastPersistedState, AppState newState}) async {
     final lastState = lastPersistedState;
 
-    if (lastState.auth != newState.auth) {
+    if (lastState == null) {
+      // FIXME: Persist complete state
+      return;
+    }
 
+    if (lastState.auth != newState.auth) {
+      // FIXME: Persist auth state here and continue with other sub states
     }
   }
 

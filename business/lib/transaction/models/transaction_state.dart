@@ -17,7 +17,7 @@ abstract class TransactionState implements Built<TransactionState, TransactionSt
   // Initial state
   static TransactionState initial() {
     return TransactionState((b) => b
-      ..transactions = [].build().toBuilder()
+      ..transactions = <Transaction>[].build().toBuilder()
     );
   }
 }
