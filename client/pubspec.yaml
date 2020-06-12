@@ -1,14 +1,13 @@
 name: client
 description: Kapitalist client logic
 version: 0.0.1
-author:
-homepage:
+author: Kapitalist developers
+homepage: --
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  # Flutter
   flutter:
     sdk: flutter
 
