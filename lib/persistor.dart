@@ -22,6 +22,7 @@ class KapitalistPersistor extends Persistor<AppState> {
 
     if (lastState.auth != newState.auth) {
       // FIXME: Persist auth state here and continue with other sub states
+      final objs = newState.auth.toMap();
     }
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/ui/util.dart';
+import 'package:client/util.dart';
 
 class WalletPage extends StatefulWidget {
   final ValueSetter<WalletCreationRequest> onSubmit;

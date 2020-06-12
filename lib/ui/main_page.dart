@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kapitalist/routes.dart';
+import 'package:business/routes.dart';
 
-import 'package:kapitalist/ui/cards/cards.dart';
-import 'package:kapitalist/ui/pages/drawer_page_connector.dart';
-import 'package:kapitalist/ui/pages/wallet_page.dart';
+import 'package:client/cards/mod.dart';
+import 'package:client/common/drawer_page_connector.dart';
+import 'package:client/wallet/wallet_page.dart';
 import 'package:kapitalist/ui/tabpages/account_tab_page.dart';
 
 class MainPage extends StatefulWidget {

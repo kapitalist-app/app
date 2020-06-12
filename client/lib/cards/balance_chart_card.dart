@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:charts_flutter/flutter.dart' as charts;
 
-import 'package:kapitalist/ui/cards/card_title.dart';
+import 'package:client/cards/card_title.dart';
 
 class BalanceChartCard extends StatelessWidget {
   @override

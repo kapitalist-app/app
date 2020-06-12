@@ -2,9 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'package:business/app_state.dart';
-import 'package:kapitalist/ui/pages/onboarding_page.dart';
+import 'package:client/onboarding/onboarding_page.dart';
 
-import 'package:kapitalist/ui/pages/onboarding_viewmodel.dart';
+import 'package:client/onboarding/onboarding_viewmodel.dart';
 
 class OnboardingPageConnector extends StatelessWidget {
   OnboardingPageConnector({Key key}) : super(key: key);

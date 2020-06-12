@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/ui/util.dart';
-
-typedef TransactionCreationCallback = void Function(TransactionCreationRequest);
+import 'package:client/util.dart';
 
 class TransactionPage extends StatefulWidget {
   final List<Wallet> wallets;
   final List<Category> categories;
-  final TransactionCreationCallback onSubmit;
+
+  final ValueSetter<TransactionCreationRequest> onSubmit;
 
   const TransactionPage(
       {Key key,

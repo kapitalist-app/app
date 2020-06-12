@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/cards/card_title.dart';
-import 'package:kapitalist/ui/cards/kapitalist_card.dart';
+import 'package:client/cards/card_title.dart';
+import 'package:client/cards/kapitalist_card.dart';
 
 class BalanceCard extends StatelessWidget {
   @override

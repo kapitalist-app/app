@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/ui/cards/card_title.dart';
-import 'package:kapitalist/ui/cards/kapitalist_card.dart';
-import 'package:kapitalist/ui/util.dart';
+import 'package:client/cards/card_title.dart';
+import 'package:client/cards/kapitalist_card.dart';
+import 'package:client/util.dart';
 import 'package:business/util.dart';
 
 class WalletsCard extends StatelessWidget {

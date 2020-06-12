@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-import 'package:kapitalist/routes.dart';
+import 'package:business/routes.dart';
 
 class DrawerPage extends StatelessWidget {
   final String email;

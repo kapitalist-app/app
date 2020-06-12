@@ -35,6 +35,9 @@ abstract class TransactionResponse
   _$TransactionResponse;
 
   // Serialization
+  static Serializer<TransactionResponse> get serializer =>
+      _$transactionResponseSerializer;
+
   String toJson() {
     return json.encode(
         serializers.serializeWith(TransactionResponse.serializer, this));
@@ -48,7 +51,4 @@ abstract class TransactionResponse
   static TransactionResponse fromMap(Map map) {
     return serializers.deserializeWith(TransactionResponse.serializer, map);
   }
-
-  static Serializer<TransactionResponse> get serializer =>
-      _$transactionResponseSerializer;
 }

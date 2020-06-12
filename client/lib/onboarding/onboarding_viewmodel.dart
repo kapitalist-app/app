@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/types.dart';
+import 'package:client/types.dart';
 
 class OnboardingViewModel extends BaseModel<AppState> {
   OnboardingViewModel();

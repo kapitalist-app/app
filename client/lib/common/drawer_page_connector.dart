@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:business/app_state.dart';
 
-import 'package:kapitalist/ui/pages/drawer_page.dart';
-import 'package:kapitalist/ui/pages/drawer_viewmodel.dart';
+import 'package:client/common/drawer_page.dart';
+import 'package:client/common/drawer_viewmodel.dart';
 
 class DrawerPageConnector extends StatelessWidget {
   DrawerPageConnector({Key key}) : super(key: key);

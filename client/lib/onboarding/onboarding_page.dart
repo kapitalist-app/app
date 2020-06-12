@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
 
-import 'package:kapitalist/types.dart';
-import 'package:kapitalist/ui/logo.dart';
-import 'package:kapitalist/ui/util.dart';
+import 'package:client/types.dart';
+import 'package:client/util.dart';
+import 'package:client/common/logo.dart';
 
 class OnboardingPage extends StatefulWidget {
   final FormFieldValidator urlValidator;

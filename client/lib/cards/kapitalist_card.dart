@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/util.dart';
-import 'package:kapitalist/ui/cards/card_title.dart';
+import 'package:client/util.dart';
+import 'package:client/cards/card_title.dart';
 
 class KapitalistCard extends StatelessWidget {
   final CardTitle title;

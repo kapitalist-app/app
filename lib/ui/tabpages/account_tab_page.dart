@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:kapitalist/ui/cards/cards.dart';
+import 'package:client/cards/mod.dart';
 
 class AccountTabPage extends StatelessWidget {
   @override

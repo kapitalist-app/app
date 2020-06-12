@@ -2,13 +2,12 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
+import 'package:business/routes.dart';
 
 import 'package:kapitalist/persistor.dart';
-import 'package:kapitalist/routes.dart';
 import 'package:kapitalist/ui/main_page.dart';
-import 'package:kapitalist/ui/pages/onboarding_page_connector.dart';
-import 'package:kapitalist/ui/pages/transaction_page.dart';
-import 'package:kapitalist/ui/pages/wallet_page.dart';
+
+import 'package:client/client.dart';
 
 Future<void> main() async {
   // FIXME: figure out, if we need this here

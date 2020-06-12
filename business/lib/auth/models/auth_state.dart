@@ -1,5 +1,7 @@
 import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
 
+import 'package:business/serializers.dart';
 import 'package:business/auth/models/auth_data.dart';
 import 'package:business/auth/models/auth_token.dart';
 
@@ -27,4 +29,12 @@ abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
       ..token = null
       ..data = null);
   }
+
+  // Serialization
+  static Serializer<AuthState> get serializer => _$authStateSerializer;
+
+  Map toMap() => serializers.serializeWith(AuthState.serializer, this);
+
+  static AuthState fromMap(Map map) =>
+      serializers.deserializeWith(AuthState.serializer, map);
 }
