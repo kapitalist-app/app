@@ -8,6 +8,7 @@ import 'package:business/auth/actions/auth_completed_action.dart';
 import 'package:business/auth/models/auth_data.dart';
 import 'package:business/auth/models/auth_token.dart';
 import 'package:business/auth/models/auth_type.dart';
+import 'package:flutter/material.dart';
 
 class DoAuthAction extends ReduxAction<AppState> {
   final AuthType type;
@@ -17,11 +18,10 @@ class DoAuthAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
-    // XXX: Check if this is okay or if api might be "old state"
     final url = state.baseUrl;
     final api = AuthApi(url);
 
-    // XXX: api currently throws
+    // FIXME: api currently throws
     AuthToken token;
     switch (this.type) {
       case AuthType.REGISTER:
@@ -32,7 +32,16 @@ class DoAuthAction extends ReduxAction<AppState> {
         break;
     }
 
-    store.dispatch(AuthCompletedAction(token, this.data));
+    debugPrint('doauth: token=$token');
+
+    // FIXME: check if we need this action or if we only need to dispatch if auth was successful
+    await store.dispatchFuture(AuthCompletedAction(token));
+
+    if (token != null) {
+      return state.rebuild((b) => b.auth
+        ..token = token.toBuilder()
+        ..data = this.data.toBuilder());
+    }
     return null;
   }
 }

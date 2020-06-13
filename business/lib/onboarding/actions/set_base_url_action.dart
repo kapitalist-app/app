@@ -2,9 +2,7 @@ import 'dart:async';
 import 'package:async_redux/async_redux.dart';
 
 import 'package:business/app_state.dart';
-import 'package:business/keys.dart';
 import 'package:business/api/api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SetBaseUrlAction extends ReduxAction<AppState> {
   final Uri baseUrl;
@@ -14,8 +12,6 @@ class SetBaseUrlAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     if (await Api().checkBaseUrl(this.baseUrl)) {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString(KapitalistKeys.BASE_URL, this.baseUrl.toString());
       return state.rebuild((b) => b..baseUrl = this.baseUrl);
     }
     return null;

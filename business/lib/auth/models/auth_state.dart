@@ -16,7 +16,7 @@ abstract class AuthState implements Built<AuthState, AuthStateBuilder> {
   AuthData get data;
 
   // Derived getters
-  bool get authenticated => token.token?.isNotEmpty;
+  bool get authenticated => token?.token?.isNotEmpty ?? false;
 
   // Constructors
   AuthState._();

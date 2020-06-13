@@ -119,7 +119,7 @@ packages:
       path: business
       relative: true
     source: path
-    version: "0.0.0"
+    version: "0.0.1"
   charcode:
     dependency: transitive
     description:
@@ -154,7 +154,7 @@ packages:
       path: client
       relative: true
     source: path
-    version: "0.0.0"
+    version: "0.0.1"
   code_builder:
     dependency: transitive
     description:

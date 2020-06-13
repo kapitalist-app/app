@@ -13,14 +13,20 @@ class AuthApi {
   // Methods
   Future<AuthToken> register(AuthData data) async {
     final url = baseUrl.replace(path: '/register');
-    final resp = await api.post(url, payload: data.toJson());
-    return AuthToken.fromJson(resp);
+    // FIXME: currently we throw away the user response, might want to use this later
+    if (await api.post(url, payload: data.toJson()) != null) {
+      return login(data);
+    }
+    return null;
   }
 
   Future<AuthToken> login(AuthData data) async {
-    final url = baseUrl.replace(path: '/login');
+    final url = baseUrl.replace(path: '/token');
     final resp = await api.post(url, payload: data.toJson());
-    return AuthToken.fromJson(resp);
+    if (resp != null) {
+      return AuthToken.fromJson(resp);
+    }
+    return null;
   }
 
   // Fields

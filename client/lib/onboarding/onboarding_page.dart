@@ -8,13 +8,15 @@ import 'package:client/util.dart';
 import 'package:client/common/logo.dart';
 
 class OnboardingPage extends StatefulWidget {
+  // Required
+  final BaseUrlCallback onSetBaseUrl;
+  final AuthCallback onDoAuth;
+  final VoidCallback onOnboardingDone;
+
+  // Optional
   final FormFieldValidator urlValidator;
   final FormFieldValidator emailValidator;
   final FormFieldValidator passwordValidator;
-
-  final ValueSetter<Uri> onSetBaseUrl;
-  final AuthCallback onDoAuth;
-  final VoidCallback onOnboardingDone;
 
   OnboardingPage({
     Key key,
@@ -43,8 +45,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   int _idx = 0;
   // Signup state
   AuthType _signupState = AuthType.REGISTER;
-  // Stream subscription to the Store
-  StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -59,37 +59,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
   }
 
   @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext ctx) {
-        // If we are logged in..
-        /*if (data.auth.loggedIn) {
-          // ..and onboarding was already done -> Navigate to MainPage
-          if (data.onboardingDone) {
-            debugPrint(
-                "Login from existing credentials -> Navigating to MainPage");
-            final navigator = Navigator.of(context);
-            navigator.pushReplacementNamed(KapitalistRoutes.HOME);
-          }
-          // ..and onboarding was not done -> Show final page
-          else {
-            debugPrint("Login in onboarding -> Showing final page");
-            setState(() {
-              _idx = 3;
-            });
-          }
-        }
-        // If the baseUrl is set => Move to login/register page once(!)
-        else if (data.api.baseUrl != null && _idx != 2) {
-          debugPrint("BaseUrl is/was set -> Skipping selection screen");
-          setState(() {
-            _idx = 2;
-          });*/
-
     return Scaffold(
       body: Container(
         color: Colors.green,
@@ -123,7 +93,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _padTextField(UiUtil.buildTextFormField(
           _keyUrl,
           'Kapitalist URL',
-          widget.urlValidator ?? _validateUrl,
+          widget.urlValidator,
           icon: Icons.cloud_queue,
         )),
         UiUtil.emptyExpanded(),
@@ -152,19 +122,19 @@ class _OnboardingPageState extends State<OnboardingPage> {
         _padTextField(UiUtil.buildTextFormField(
           _keyEmail,
           'Email',
-          widget.emailValidator ?? _validateEmail,
+          widget.emailValidator,
           icon: Icons.email,
           inputType: TextInputType.emailAddress,
         )),
         _padTextField(UiUtil.buildTextFormField(
           _keyPassword,
           'Password',
-          widget.passwordValidator ?? _validatePassword,
+          widget.passwordValidator,
           icon: Icons.vpn_key,
           obscure: true,
         )),
         UiUtil.emptyExpanded(),
-        _buildButton(_clickSignupLoginButton, true, text: buttonText),
+        _buildButton(_clickSignupLoginButton, false, text: buttonText),
       ],
     );
   }
@@ -189,11 +159,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       return false;
     }
 
-    // XXX: This might throw
-    this.widget.onSetBaseUrl(Uri.parse(_keyUrl.currentState.value));
-
-    // XXX: We need to wait for the change to take effect, so we return false
-    return false;
+    return await this.widget.onSetBaseUrl(Uri.parse(_keyUrl.currentState.value));
   }
 
   Future<bool> _clickSignupLoginButton() async {
@@ -208,10 +174,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ..email = _keyEmail.currentState.value
       ..password = _keyPassword.currentState.value);
 
-    this.widget.onDoAuth(_signupState, data);
-
-    // Always return false, because we wait for the authentication to succeed
-    return false;
+    return await this.widget.onDoAuth(_signupState, data);
   }
 
   // Page base parts
@@ -298,21 +261,5 @@ class _OnboardingPageState extends State<OnboardingPage> {
       padding: EdgeInsets.symmetric(horizontal: 30),
       child: textfield,
     );
-  }
-
-  // Validation
-  String _validateUrl(String url) {
-    debugPrint('[OnboardingPage] Validating url: $url');
-    return !url.contains('https') ? 'Url invalid' : null;
-  }
-
-  String _validateEmail(String email) {
-    debugPrint('[OnboardingPage] Validating email: $email');
-    return !email.contains('@') ? 'Invalid email address' : null;
-  }
-
-  String _validatePassword(String password) {
-    debugPrint('[OnboardingPage] Validating password: $password');
-    return null;
   }
 }
