@@ -36,7 +36,10 @@ class OnboardingViewModel extends BaseModel<AppState> {
         await dispatchFuture(DoAuthAction(type, data));
         return state.auth.authenticated;
       },
-      onOnboardingDone: () => dispatch(OnboardingDoneAction()),
+      onOnboardingDone: () async {
+        await dispatchFuture(OnboardingDoneAction());
+        dispatch(NavigateAction.pushReplacementNamed(KapitalistRoutes.HOME));
+      },
       urlValidator: _validateUrl,
       emailValidator: _validateEmail,
       passwordValidator: _validatePassword);
