@@ -2,12 +2,9 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
 import 'package:business/business.dart';
-import 'package:business/routes.dart';
+import 'package:client/client.dart';
 
 import 'package:kapitalist/persistor.dart';
-import 'package:kapitalist/ui/main_page.dart';
-
-import 'package:client/client.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -53,8 +50,9 @@ class _KapitalistAppState extends State<KapitalistApp> {
               return new OnboardingPageConnector();
             },
             KapitalistRoutes.HOME: (ctx) {
-              debugPrint('#### Building page for ${KapitalistRoutes.HOME} ####');
-              return new MainPage();
+              debugPrint(
+                  '#### Building page for ${KapitalistRoutes.HOME} ####');
+              return new MainPageConnector();
             },
             KapitalistRoutes.NEW_WALLET: (ctx) {
               debugPrint(

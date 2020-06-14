@@ -1,6 +1,5 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:business/business.dart';
 

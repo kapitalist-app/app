@@ -7,10 +7,7 @@ import 'package:client/util.dart';
 class WalletPage extends StatefulWidget {
   final ValueSetter<WalletCreationRequest> onSubmit;
 
-  WalletPage({
-    Key key,
-    @required this.onSubmit,
-  }) : super(key: key ?? null);
+  WalletPage({Key key, this.onSubmit}) : super(key: key);
 
   @override
   State<WalletPage> createState() => _WalletPageState();

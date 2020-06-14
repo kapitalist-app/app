@@ -18,6 +18,9 @@ dependencies:
   # Charting
   charts_flutter: ^0.9.0
 
+  # Redux helpers
+  async_redux: ^2.9.0
+
 dev_dependencies:
   test: ^1.14.0
 

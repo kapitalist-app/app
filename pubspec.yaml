@@ -5,7 +5,6 @@ dependencies:
   # Flutter
   flutter:
     sdk: flutter
-  cupertino_icons: ^0.1.0
 
   business:
     path: business/
